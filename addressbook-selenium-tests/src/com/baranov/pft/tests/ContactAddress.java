@@ -1,4 +1,4 @@
-package com.baranov.pft01;
+package com.baranov.pft.tests;
 
 public class ContactAddress {
     private String address;
