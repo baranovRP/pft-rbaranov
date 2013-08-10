@@ -46,4 +46,23 @@ public class ContactModificationTests extends TestBase {
 	app.getContactHelper().submitUpdate();
 	app.getNavigationHelper().returntoHomePage();
     }
+
+    @Test
+    public void modifySomeContactBirth() {
+	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
+	app.getContactHelper().initContactModification(1);
+	ContactData contact = new ContactData();
+	BirhtdayData bdata = new BirhtdayData();
+	GroupData group = new GroupData();
+	ContactAddress contactAddr = new ContactAddress();
+	contactAddr.setEmail("theNew@email.net");
+	contact.setContactAddress(contactAddr);
+	contact.setSecondName("modifySomeContactAddr");
+	bdata.setBday("21");
+	contact.setBdata(bdata);
+	contact.setGroup(group);
+	app.getContactHelper().fillContactForm(app, this, contact);
+	app.getContactHelper().submitUpdate();
+	app.getNavigationHelper().returntoHomePage();
+    }
 }
