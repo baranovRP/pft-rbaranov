@@ -15,5 +15,4 @@ public class ActionHelper extends HelperBase {
     public void submitUpdate() {
 	click(By.name("update"));
     }
-
 }

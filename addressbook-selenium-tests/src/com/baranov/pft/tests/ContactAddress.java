@@ -23,6 +23,10 @@ public class ContactAddress {
 	this.phone2 = phone2;
     }
 
+    public ContactAddress() {
+
+    }
+
     public String getAddress() {
 	return address;
     }

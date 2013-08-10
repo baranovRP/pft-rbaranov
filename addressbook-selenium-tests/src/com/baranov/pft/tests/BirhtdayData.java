@@ -12,6 +12,8 @@ public class BirhtdayData {
     }
 
     public BirhtdayData() {
+	this.bday = "-";
+	this.bmonth = "-";
     }
 
     public String getBday() {

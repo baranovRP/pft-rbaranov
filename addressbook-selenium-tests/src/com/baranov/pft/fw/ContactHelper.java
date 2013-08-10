@@ -41,11 +41,31 @@ public class ContactHelper extends HelperBase {
     }
 
     public void deleteContact(int index) {
-	selectContactByIndex(index);
+	editContactByIndex(index);
+	submitDelete();
+    }
+
+    private void submitDelete() {
 	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
     }
 
-    private void selectContactByIndex(int index) {
+    public void initContactModification(int index) {
+	editContactByIndex(index);
+    }
+
+    public void viewContact(int index) {
+	detailsContactByIndex(index);
+    }
+
+    public void submitUpdate() {
+	click(By.xpath("//*[@id='content']//*[@value='Update']"));
+    }
+
+    public void submitModify() {
+	click(By.xpath("//*[@value='Modify']"));
+    }
+
+    private void editContactByIndex(int index) {
 	// The first line it's table's header.
 	// That's the reason why we add 1 to index
 	int correctIndex = 1 + index;
@@ -53,12 +73,11 @@ public class ContactHelper extends HelperBase {
 		+ "]/td[7]/a/img"));
     }
 
-    public void initGroupModification(int index) {
-	selectContactByIndex(index);
+    private void detailsContactByIndex(int index) {
+	// The first line it's table's header.
+	// That's the reason why we add 1 to index
+	int correctIndex = 1 + index;
+	click(By.xpath("//*[@id='maintable']/tbody/tr[" + correctIndex
+		+ "]/td[6]/a/img"));
     }
-
-    public void submitUpdate() {
-	click(By.xpath("//*[@id='content']//*[@value='Update']"));
-    }
-
 }
