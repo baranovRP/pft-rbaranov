@@ -53,4 +53,12 @@ public class ContactHelper extends HelperBase {
 		+ "]/td[7]/a/img"));
     }
 
+    public void initGroupModification(int index) {
+	selectContactByIndex(index);
+    }
+
+    public void submitUpdate() {
+	click(By.xpath("//*[@id='content']//*[@value='Update']"));
+    }
+
 }
