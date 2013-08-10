@@ -40,4 +40,17 @@ public class ContactHelper extends HelperBase {
 	type(By.name("byear"), contact.getBdata().getByear());
     }
 
+    public void deleteContact(int index) {
+	selectContactByIndex(index);
+	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
+    }
+
+    private void selectContactByIndex(int index) {
+	// The first line it's table's header.
+	// That's the reason why we add 1 to index
+	int correctIndex = 1 + index;
+	click(By.xpath("//*[@id='maintable']/tbody/tr[" + correctIndex
+		+ "]/td[7]/a/img"));
+    }
+
 }
