@@ -42,7 +42,7 @@ public class ContactModificationTests extends TestBase {
 	contact.setSecondName("modifySomeContactAddr");
 	contact.setBdata(bdata);
 	contact.setGroup(group);
-	app.getContactHelper().fillContactForm(app, this, contact);
+	app.getContactHelper().fillContactForm(contact);
 	app.getContactHelper().submitUpdate();
 	app.getNavigationHelper().returntoHomePage();
     }
@@ -61,7 +61,7 @@ public class ContactModificationTests extends TestBase {
 	bdata.setBday("21");
 	contact.setBdata(bdata);
 	contact.setGroup(group);
-	app.getContactHelper().fillContactForm(app, this, contact);
+	app.getContactHelper().fillContactForm(contact);
 	app.getContactHelper().submitUpdate();
 	app.getNavigationHelper().returntoHomePage();
     }

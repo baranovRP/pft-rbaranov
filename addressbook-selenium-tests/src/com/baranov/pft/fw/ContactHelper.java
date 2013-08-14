@@ -3,7 +3,6 @@ package com.baranov.pft.fw;
 import org.openqa.selenium.By;
 
 import com.baranov.pft.tests.ContactData;
-import com.baranov.pft.tests.TestBase;
 
 public class ContactHelper extends HelperBase {
 
@@ -11,11 +10,14 @@ public class ContactHelper extends HelperBase {
 	super(manager);
     }
 
-    public void fillContactForm(ApplicationManager applicationManager,
-	    TestBase testBase, ContactData contact) {
-	testBase.app.getContactHelper().fillContactAddress(contact);
-	testBase.app.getContactHelper().fillBirthday(contact);
-	testBase.app.getGroupHelper().fillGroupName(contact);
+    public void fillContactForm(ContactData contact) {
+	fillContactAddress(contact);
+	fillBirthday(contact);
+	fillGroupName(contact);
+    }
+
+    public void fillGroupName(ContactData contact) {
+	selectByText(By.name("new_group"), contact.getGroup().getGroupName());
     }
 
     public void fillContactName(ContactData contact) {
