@@ -54,22 +54,22 @@ public abstract class HelperBase {
 
     protected void type(By locator, String text) {
 	if (text != null) {
-	    findElement(locator).clear();
-	    findElement(locator).sendKeys(text);
+	    findElementonPage(locator).clear();
+	    findElementonPage(locator).sendKeys(text);
 	}
     }
 
     protected void click(By locator) {
-	findElement(locator).click();
+	findElementonPage(locator).click();
     }
 
     protected void selectByText(By locator, String text) {
 	if (text != null) {
-	    new Select(findElement(locator)).selectByVisibleText(text);
+	    new Select(findElementonPage(locator)).selectByVisibleText(text);
 	}
     }
 
-    private WebElement findElement(By locator) {
+    private WebElement findElementonPage(By locator) {
 	return driver.findElement(locator);
     }
 }
