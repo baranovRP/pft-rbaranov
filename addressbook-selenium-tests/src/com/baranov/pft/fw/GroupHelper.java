@@ -1,6 +1,10 @@
 package com.baranov.pft.fw;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.baranov.pft.tests.ContactData;
 import com.baranov.pft.tests.GroupData;
@@ -37,5 +41,19 @@ public class GroupHelper extends HelperBase {
     public void initGroupModification(int index) {
 	selectGroupByIndex(index);
 	click(By.name("edit"));
+    }
+
+    public List<GroupData> getGroups() {
+	List<GroupData> groups = new ArrayList<GroupData>();
+	List<WebElement> checkboxes = driver
+		.findElements(By.name("selected[]"));
+	for (WebElement checkbox : checkboxes) {
+	    GroupData group = new GroupData();
+	    String title = checkbox.getAttribute("title");
+	    group.setGroupName(title.substring("Select (".length(),
+		    title.length() - ")".length()));
+	    groups.add(group);
+	}
+	return groups;
     }
 }

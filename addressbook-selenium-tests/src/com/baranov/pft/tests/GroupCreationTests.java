@@ -1,5 +1,9 @@
 package com.baranov.pft.tests;
 
+import static org.testng.Assert.assertEquals;
+
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 public class GroupCreationTests extends TestBase {
@@ -7,6 +11,12 @@ public class GroupCreationTests extends TestBase {
     public void testNoneEmptyGroupCreation() throws Exception {
 	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
 	app.getNavigationHelper().gotoPage("groups");
+
+	// save old state
+	List<GroupData> oldList = app.getGroupHelper().getGroups();
+
+	// actions
+
 	app.getGroupHelper().initGroupCreation();
 	GroupData group = new GroupData();
 	group.setGroupName("group name 1");
@@ -15,9 +25,16 @@ public class GroupCreationTests extends TestBase {
 	app.getGroupHelper().fillGroupForm(group);
 	app.getActionHelper().submitCreation();
 	app.getNavigationHelper().returntoGroupsPage();
+
+	// save new state
+	List<GroupData> newList = app.getGroupHelper().getGroups();
+
+	// compare states
+	assertEquals(newList.size(), oldList.size() + 1);
+
     }
 
-    @Test
+    // @Test
     public void testEmptyGroupCreation() throws Exception {
 	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
 	app.getNavigationHelper().gotoPage("groups");
