@@ -1,5 +1,7 @@
 package com.baranov.pft.fw;
 
+import java.util.List;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -71,5 +73,14 @@ public abstract class HelperBase {
 
     protected WebElement findElement(By locator) {
 	return driver.findElement(locator);
+    }
+
+    protected List<WebElement> findElements(By locator) {
+	return driver.findElements(locator);
+    }
+
+    protected String extractTitle(WebElement element, String title) {
+	return element.getAttribute(title).substring("Select (".length(),
+		element.getAttribute(title).length() - ")".length());
     }
 }

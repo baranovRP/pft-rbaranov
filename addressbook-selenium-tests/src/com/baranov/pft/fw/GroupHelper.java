@@ -45,15 +45,13 @@ public class GroupHelper extends HelperBase {
 
     public List<GroupData> getGroups() {
 	List<GroupData> groups = new ArrayList<GroupData>();
-	List<WebElement> checkboxes = driver
-		.findElements(By.name("selected[]"));
+	List<WebElement> checkboxes = findElements(By.name("selected[]"));
 	for (WebElement checkbox : checkboxes) {
 	    GroupData group = new GroupData();
-	    String title = checkbox.getAttribute("title");
-	    group.setGroupName(title.substring("Select (".length(),
-		    title.length() - ")".length()));
+	    group.setGroupName(extractTitle(checkbox, "title"));
 	    groups.add(group);
 	}
 	return groups;
     }
+
 }
