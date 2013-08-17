@@ -80,7 +80,8 @@ public abstract class HelperBase {
     }
 
     protected String extractTitle(WebElement element, String title) {
-	return element.getAttribute(title).substring("Select (".length(),
-		element.getAttribute(title).length() - ")".length());
+	int beginIndex = "Select (".length();
+	int endIndex = element.getAttribute(title).length() - ")".length();
+	return element.getAttribute(title).substring(beginIndex, endIndex);
     }
 }
