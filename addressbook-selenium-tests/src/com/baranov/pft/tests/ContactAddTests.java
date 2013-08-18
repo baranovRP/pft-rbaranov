@@ -1,11 +1,21 @@
 package com.baranov.pft.tests;
 
+import static org.testng.Assert.assertEquals;
+
+import java.util.Collections;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 public class ContactAddTests extends TestBase {
+
     @Test
     public void testNoneEmptyContact() throws Exception {
 	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
+
+	// save old state
+	List<ContactData> oldList = app.getContactHelper().getContacts();
+
 	app.getNavigationHelper().gotoPage("add new");
 	GroupData groupdata = new GroupData("group 1");
 	BirhtdayData bdata = new BirhtdayData("2", "January", "1902");
@@ -14,16 +24,31 @@ public class ContactAddTests extends TestBase {
 		"(781) 444-2222", "(781) 444-1111", "(781) 444-3333",
 		"iivanov@iv.com", "ivanivanov@mail.com",
 		"5234 Locust St\nPhiladelphia, PA", "(215) 528-2134");
-	app.getContactHelper().fillContactForm(
-		new ContactData("Petr", "Petrov", contactAddress, bdata,
-			groupdata));
+
+	ContactData contact = new ContactData("Petr", "Petrov", contactAddress,
+		bdata, groupdata);
+	app.getContactHelper().fillContactForm(contact);
 	app.getActionHelper().submitCreation();
 	app.getNavigationHelper().returntoHomePage();
+
+	// save new state
+	List<ContactData> newList = app.getContactHelper().getContacts();
+
+	// compare states
+	oldList.add(contact);
+	Collections.sort(newList);
+	Collections.sort(oldList);
+	assertEquals(newList, oldList);
+
     }
 
     @Test
     public void testEmptyContact() throws Exception {
 	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
+
+	// save old state
+	List<ContactData> oldList = app.getContactHelper().getContacts();
+
 	app.getNavigationHelper().gotoPage("add new");
 	// combobox "new_group" uses value "[none]" in a case of empty value
 	GroupData groupdata = new GroupData("[none]");
@@ -34,9 +59,19 @@ public class ContactAddTests extends TestBase {
 	BirhtdayData bdata = new BirhtdayData("-", "-", "");
 	ContactAddress contactAddress = new ContactAddress("", "", "", "", "",
 		"", "", "");
-	app.getContactHelper().fillContactForm(
-		new ContactData("", "", contactAddress, bdata, groupdata));
+	ContactData contact = new ContactData("", "", contactAddress, bdata,
+		groupdata);
+	app.getContactHelper().fillContactForm(contact);
 	app.getActionHelper().submitCreation();
 	app.getNavigationHelper().returntoHomePage();
+
+	// save new state
+	List<ContactData> newList = app.getContactHelper().getContacts();
+
+	// compare states
+	oldList.add(contact);
+	Collections.sort(newList);
+	Collections.sort(oldList);
+	assertEquals(newList, oldList);
     }
 }

@@ -1,6 +1,10 @@
 package com.baranov.pft.fw;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.baranov.pft.tests.ContactData;
 
@@ -11,6 +15,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillContactForm(ContactData contact) {
+	fillContactName(contact);
 	fillContactAddress(contact);
 	fillBirthday(contact);
 	fillGroupName(contact);
@@ -81,5 +86,23 @@ public class ContactHelper extends HelperBase {
 	int correctIndex = 1 + index;
 	click(By.xpath("//*[@id='maintable']/tbody/tr[" + correctIndex
 		+ "]/td[6]/a/img"));
+    }
+
+    public List<ContactData> getContacts() {
+	List<ContactData> contacts = new ArrayList<ContactData>();
+	List<WebElement> checkboxes = findElements(By.name("selected[]"));
+	for (WebElement checkbox : checkboxes) {
+	    ContactData contact = new ContactData();
+	    contact.setFullName(extractTitle(checkbox, "title"));
+	    contacts.add(contact);
+	}
+	return contacts;
+    }
+
+    public String getFirstNameFromPage() {
+	String firstName;
+	WebElement textField = findElement(By.name("firstname"));
+	firstName = textField.getAttribute("value");
+	return firstName;
     }
 }

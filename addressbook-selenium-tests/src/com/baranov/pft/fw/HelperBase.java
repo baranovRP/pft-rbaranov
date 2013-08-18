@@ -84,4 +84,8 @@ public abstract class HelperBase {
 	int endIndex = element.getAttribute(title).length() - ")".length();
 	return element.getAttribute(title).substring(beginIndex, endIndex);
     }
+
+    protected String extractValue(WebElement element, String title) {
+	return element.getAttribute(title);
+    }
 }
