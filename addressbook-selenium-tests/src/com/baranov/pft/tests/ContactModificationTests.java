@@ -16,7 +16,9 @@ public class ContactModificationTests extends TestBase {
 	// save old state
 	List<ContactData> oldList = app.getContactHelper().getContacts();
 
-	app.getContactHelper().initContactModification(1);
+	int index = getRandomIndex(oldList);
+
+	app.getContactHelper().initContactModification(index);
 	ContactData contact = new ContactData();
 	contact.setFirstName("New");
 	contact.setSecondName("Contact");
@@ -29,7 +31,7 @@ public class ContactModificationTests extends TestBase {
 	List<ContactData> newList = app.getContactHelper().getContacts();
 
 	// compare states
-	oldList.remove(0);
+	oldList.remove(index);
 	oldList.add(contact);
 	Collections.sort(newList);
 	Collections.sort(oldList);
@@ -43,7 +45,9 @@ public class ContactModificationTests extends TestBase {
 	// save old state
 	List<ContactData> oldList = app.getContactHelper().getContacts();
 
-	app.getContactHelper().viewContact(1);
+	int index = getRandomIndex(oldList);
+
+	app.getContactHelper().viewContact(index);
 	app.getContactHelper().submitModify();
 	ContactData contact = new ContactData();
 	contact.setFirstName("NewView");
@@ -57,7 +61,7 @@ public class ContactModificationTests extends TestBase {
 	List<ContactData> newList = app.getContactHelper().getContacts();
 
 	// compare states
-	oldList.remove(0);
+	oldList.remove(index);
 	oldList.add(contact);
 	Collections.sort(newList);
 	Collections.sort(oldList);
@@ -71,7 +75,9 @@ public class ContactModificationTests extends TestBase {
 	// save old state
 	List<ContactData> oldList = app.getContactHelper().getContacts();
 
-	app.getContactHelper().initContactModification(1);
+	int index = getRandomIndex(oldList);
+
+	app.getContactHelper().initContactModification(index);
 	ContactData contact = new ContactData();
 	BirhtdayData bdata = new BirhtdayData();
 	GroupData group = new GroupData();
@@ -91,7 +97,7 @@ public class ContactModificationTests extends TestBase {
 	List<ContactData> newList = app.getContactHelper().getContacts();
 
 	// compare states
-	oldList.remove(0);
+	oldList.remove(index);
 	oldList.add(contact);
 	Collections.sort(newList);
 	Collections.sort(oldList);
@@ -105,7 +111,9 @@ public class ContactModificationTests extends TestBase {
 	// save old state
 	List<ContactData> oldList = app.getContactHelper().getContacts();
 
-	app.getContactHelper().initContactModification(1);
+	int index = getRandomIndex(oldList);
+
+	app.getContactHelper().initContactModification(index);
 	ContactData contact = new ContactData();
 	BirhtdayData bdata = new BirhtdayData();
 	GroupData group = new GroupData();
@@ -126,7 +134,7 @@ public class ContactModificationTests extends TestBase {
 	List<ContactData> newList = app.getContactHelper().getContacts();
 
 	// compare states
-	oldList.remove(0);
+	oldList.remove(index);
 	oldList.add(contact);
 	Collections.sort(newList);
 	Collections.sort(oldList);

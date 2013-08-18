@@ -88,4 +88,5 @@ public abstract class HelperBase {
     protected String extractValue(WebElement element, String title) {
 	return element.getAttribute(title);
     }
+
 }

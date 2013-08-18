@@ -75,7 +75,8 @@ public class ContactHelper extends HelperBase {
     private void editContactByIndex(int index) {
 	// The first line it's table's header.
 	// That's the reason why we add 1 to index
-	int correctIndex = 1 + index;
+	// Other 1 we add due to array in java begins from zero
+	int correctIndex = 2 + index;
 	click(By.xpath("//*[@id='maintable']/tbody/tr[" + correctIndex
 		+ "]/td[7]/a/img"));
     }
@@ -83,7 +84,8 @@ public class ContactHelper extends HelperBase {
     private void detailsContactByIndex(int index) {
 	// The first line it's table's header.
 	// That's the reason why we add 1 to index
-	int correctIndex = 1 + index;
+	// Other 1 we add due to array in java begins from zero
+	int correctIndex = 2 + index;
 	click(By.xpath("//*[@id='maintable']/tbody/tr[" + correctIndex
 		+ "]/td[6]/a/img"));
     }

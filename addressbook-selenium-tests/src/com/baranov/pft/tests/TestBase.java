@@ -47,4 +47,9 @@ public class TestBase {
 	}
     }
 
+    public <E> int getRandomIndex(List<E> oldList) {
+	Random rnd = new Random();
+	int index = rnd.nextInt(oldList.size() - 1);
+	return index;
+    }
 }
