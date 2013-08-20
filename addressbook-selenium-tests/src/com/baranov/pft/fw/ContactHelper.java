@@ -21,6 +21,13 @@ public class ContactHelper extends HelperBase {
 	fillGroupName(contact);
     }
 
+    // field 'group' is absent on modification form
+    public void modifyContactForm(ContactData contact) {
+	fillContactName(contact);
+	fillContactAddress(contact);
+	fillBirthday(contact);
+    }
+
     public void fillGroupName(ContactData contact) {
 	selectByText(By.name("new_group"), contact.getGroup().getGroupName());
     }
