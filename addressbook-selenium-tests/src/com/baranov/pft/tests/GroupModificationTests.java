@@ -11,19 +11,13 @@ public class GroupModificationTests extends TestBase {
 
     @Test(dataProvider = "randomValidGroupGenerator")
     public void modifySomeGroup(GroupData group) {
-	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
-	app.getNavigationHelper().gotoPage("groups");
-
 	// save old state
 	List<GroupData> oldList = app.getGroupHelper().getGroups();
 
 	int index = getRandomIndex(oldList);
 
 	// actions
-	app.getGroupHelper().initGroupModification(index);
-	app.getGroupHelper().fillGroupForm(group);
-	app.getActionHelper().submitUpdate();
-	app.getNavigationHelper().returntoGroupsPage();
+	app.getGroupHelper().modifyGroup(index, group);
 
 	// save new state
 	List<GroupData> newList = app.getGroupHelper().getGroups();

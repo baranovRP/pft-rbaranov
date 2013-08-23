@@ -10,6 +10,9 @@ import com.baranov.pft.tests.ContactData;
 
 public class ContactHelper extends HelperBase {
 
+    public static boolean CREATION = true;
+    public static boolean MODIFICATION = true;
+
     public ContactHelper(ApplicationManager manager) {
 	super(manager);
     }
@@ -113,5 +116,29 @@ public class ContactHelper extends HelperBase {
 	WebElement textField = findElement(By.name("firstname"));
 	firstName = textField.getAttribute("value");
 	return firstName;
+    }
+
+    public String[] getListMonths() {
+	int iter = 0;
+	List<WebElement> values = findElements(By
+		.xpath("//*[@name='bmonth']/option"));
+	String[] listMonths = new String[values.size()];
+	for (WebElement webElement : values) {
+	    listMonths[iter] = extractValue(webElement, "value");
+	    iter++;
+	}
+	return listMonths;
+    }
+
+    public String[] getListGroups() {
+	int iter = 0;
+	List<WebElement> values = findElements(By
+		.xpath("//*[@name='new_group']/option"));
+	String[] listMonths = new String[values.size()];
+	for (WebElement webElement : values) {
+	    listMonths[iter] = extractGroup(webElement);
+	    iter++;
+	}
+	return listMonths;
     }
 }

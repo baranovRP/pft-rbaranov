@@ -8,11 +8,13 @@ public class ActionHelper extends HelperBase {
 	super(manager);
     }
 
-    public void submitCreation() {
+    public ActionHelper submitCreation() {
 	click(By.name("submit"));
+	return this;
     }
 
-    public void submitUpdate() {
+    public ActionHelper submitUpdate() {
 	click(By.name("update"));
+	return this;
     }
 }

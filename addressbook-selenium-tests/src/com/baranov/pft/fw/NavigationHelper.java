@@ -8,20 +8,45 @@ public class NavigationHelper extends HelperBase {
 	super(manager);
     }
 
-    public void returntoGroupsPage() {
-	click(By.linkText("group page"));
+    public void mainPage() {
+	if (!onMainPage()) {
+	    click(By.linkText("home"));
+	}
     }
 
-    public void returntoHomePage() {
-	click(By.linkText("home page"));
+    private boolean onMainPage() {
+	return driver.findElements(By.id("maintable")).size() > 0;
     }
 
-    public void gotoPage(String page) {
-	click(By.linkText(page));
+    public void addNewPage() {
+	if (!onAddNewPage()) {
+	    click(By.linkText("add new"));
+	}
     }
 
-    public void openMainPage(String page) {
-	driver.get(manager.baseUrl + page);
+    private boolean onAddNewPage() {
+	driver.findElements(By.name("submit"));
+	if (driver.getCurrentUrl().contains("/edit.php")
+		&& driver.findElements(By.name("new")).size() > 0) {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
+    public void groupsPage() {
+	if (!onGroupsPage()) {
+	    click(By.linkText("groups"));
+	}
+    }
+
+    public boolean onGroupsPage() {
+	driver.findElements(By.name("new"));
+	if (driver.getCurrentUrl().contains("/group.php")
+		&& driver.findElements(By.name("new")).size() > 0) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
 }

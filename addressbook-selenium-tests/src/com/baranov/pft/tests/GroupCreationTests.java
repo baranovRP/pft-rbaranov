@@ -12,17 +12,11 @@ public class GroupCreationTests extends TestBase {
     @Test(dataProvider = "randomValidGroupGenerator")
     public void testGroupCreationWithValidData(GroupData group)
 	    throws Exception {
-	app.getNavigationHelper().openMainPage("addressbookv4.1.4/");
-	app.getNavigationHelper().gotoPage("groups");
-
 	// save old state
 	List<GroupData> oldList = app.getGroupHelper().getGroups();
 
 	// actions
-	app.getGroupHelper().initGroupCreation();
-	app.getGroupHelper().fillGroupForm(group);
-	app.getActionHelper().submitCreation();
-	app.getNavigationHelper().returntoGroupsPage();
+	app.getGroupHelper().createGroup(group);
 
 	// save new state
 	List<GroupData> newList = app.getGroupHelper().getGroups();
@@ -30,6 +24,7 @@ public class GroupCreationTests extends TestBase {
 	// compare states
 	oldList.add(group);
 	Collections.sort(oldList);
+	Collections.sort(newList);
 	assertEquals(newList, oldList);
     }
 }

@@ -89,4 +89,17 @@ public abstract class HelperBase {
 	return element.getAttribute(title);
     }
 
+    protected String extractGroup(WebElement element) {
+	// String node = "<option/>";
+	String none = "[none]";
+	if (element.toString().contentEquals(none)) {
+	    return none;
+	    // } else if (node.equals(element.toString())) {
+	    // return " ";
+	} else {
+	    int beginIndex = "<option>".length();
+	    int endIndex = element.toString().length() - "</option>".length();
+	    return element.toString().substring(beginIndex, endIndex);
+	}
+    }
 }
