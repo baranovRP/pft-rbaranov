@@ -100,4 +100,8 @@ public abstract class HelperBase {
 	    return "";
 	}
     }
+
+    protected String extractData(WebElement element, By locator) {
+	return element.findElement(locator).getText().trim();
+    }
 }

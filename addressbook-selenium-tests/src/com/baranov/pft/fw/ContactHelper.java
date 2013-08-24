@@ -6,6 +6,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.baranov.pft.tests.ContactAddress;
 import com.baranov.pft.tests.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -29,17 +30,21 @@ public class ContactHelper extends HelperBase {
     private void rebuildCache() {
 	cachedContacts = new ArrayList<ContactData>();
 
-	// List<WebElement> checkboxes = findElements(By.name("selected[]"));
-	// for (WebElement checkbox : checkboxes) {
-	// ContactData contact = new ContactData();
-	// contact.setFullName(extractTitle(checkbox, "title"));
-	// cachedContacts.add(contact);
-	// }
 	List<WebElement> td = findElements(By
 		.xpath("//*[@id='maintable']//tr[@name='entry']"));
 	for (WebElement webElement : td) {
+	    String firstName = extractData(webElement, (By.xpath("./td[3]")));
+	    String secondName = extractData(webElement, (By.xpath("./td[2]")));
+	    String email = extractData(webElement, (By.xpath("./td/a")));
+	    String phone = extractData(webElement, (By.xpath("./td[5]")));
 	    ContactData contact = new ContactData();
-	    contact.setFullName(fullName);
+	    ContactAddress address = new ContactAddress();
+	    contact.setFirstName(firstName);
+	    contact.setSecondName(secondName);
+	    address.setEmail(email);
+	    address.setHomePhone(phone);
+	    contact.setContactAddress(address);
+	    contact.setFullName(firstName, secondName);
 	    cachedContacts.add(contact);
 	}
     }
