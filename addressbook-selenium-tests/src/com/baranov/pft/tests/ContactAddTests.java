@@ -20,12 +20,6 @@ public class ContactAddTests extends TestBase {
 
 	app.navigateTo().addNewPage();
 
-	BirhtdayData bdata = contact.getBdata();
-	String[] listBMonth = app.getContactHelper().getListMonths();
-	int indexMonth = new Random().nextInt(listBMonth.length);
-	bdata.setBmonth(listBMonth[indexMonth]);
-	contact.setBdata(bdata);
-
 	GroupData group = contact.getGroup();
 	String[] listGroups = app.getContactHelper().getListGroups();
 	int indexGroup = new Random().nextInt(listGroups.length);

@@ -93,6 +93,7 @@ public class TestBase {
     @DataProvider
     public Iterator<Object[]> randomValidContactGenerator() {
 	List<Object[]> list = new ArrayList<Object[]>();
+	app.navigateTo().addNewPage();
 	for (int i = 0; i < 5; i++) {
 	    ContactData contact = new ContactData();
 	    contact.setFirstName(generateRandomString());
@@ -104,6 +105,7 @@ public class TestBase {
 	    list.add(new Object[] { contact });
 	}
 	// ...
+	app.navigateTo().mainPage();
 	return list.iterator();
     }
 
@@ -111,57 +113,15 @@ public class TestBase {
 	BirhtdayData bdata = new BirhtdayData();
 	Random rnd = new Random();
 	bdata.setByear(Integer.toString(rnd.nextInt(10000)));
-	bdata.setBmonth(getRandomMonth(rnd.nextInt(12)));
+	bdata.setBmonth(getRandomMonth());
 	bdata.setBday(getRandomDay(rnd.nextInt(32)));
 	return bdata;
     }
 
-    public String getRandomMonth(int month) {
-	String bmonth = "-";
-	switch (month) {
-	case 0:
-	    bmonth = "-";
-	    break;
-	case 1:
-	    bmonth = "January";
-	    break;
-	case 2:
-	    bmonth = "February";
-	    break;
-	case 3:
-	    bmonth = "March";
-	    break;
-	case 4:
-	    bmonth = "April";
-	    break;
-	case 5:
-	    bmonth = "May";
-	    break;
-	case 6:
-	    bmonth = "June";
-	    break;
-	case 7:
-	    bmonth = "July";
-	    break;
-	case 8:
-	    bmonth = "August";
-	    break;
-	case 9:
-	    bmonth = "September";
-	    break;
-	case 10:
-	    bmonth = "October";
-	    break;
-	case 11:
-	    bmonth = "November";
-	    break;
-	case 12:
-	    bmonth = "December";
-	    break;
-	default:
-	    break;
-	}
-	return bmonth;
+    public String getRandomMonth() {
+	String[] listMonths = app.getContactHelper().getListMonths();
+	int indexMonth = new Random().nextInt(listMonths.length);
+	return listMonths[indexMonth];
     }
 
     public String getRandomDay(int data) {
@@ -175,6 +135,8 @@ public class TestBase {
     // Group name is selector, and the name can be obtain from DB or from
     // page, but taken group from page is broke conception of dataprovider!?
     public GroupData generateRandomGroup() {
+	// app.navigateTo().addNewPage();
+
 	GroupData group = new GroupData("[none]");
 	return group;
     }

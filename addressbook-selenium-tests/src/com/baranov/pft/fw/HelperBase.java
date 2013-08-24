@@ -90,18 +90,10 @@ public abstract class HelperBase {
     }
 
     protected String extractGroup(WebElement element) {
-	String none = "[none]";
-	String elementText = element.getText();
-	if (elementText.contentEquals(none)) {
-	    return none;
-	} else if (elementText.length() != 0) {
-	    return elementText;
-	} else {
-	    return "";
-	}
+	return element.getText();
     }
 
     protected String extractData(WebElement element, By locator) {
-	return element.findElement(locator).getText().trim();
+	return element.findElement(locator).getText();
     }
 }
