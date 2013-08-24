@@ -90,16 +90,14 @@ public abstract class HelperBase {
     }
 
     protected String extractGroup(WebElement element) {
-	// String node = "<option/>";
 	String none = "[none]";
-	if (element.toString().contentEquals(none)) {
+	String elementText = element.getText();
+	if (elementText.contentEquals(none)) {
 	    return none;
-	    // } else if (node.equals(element.toString())) {
-	    // return " ";
+	} else if (elementText.length() != 0) {
+	    return elementText;
 	} else {
-	    int beginIndex = "<option>".length();
-	    int endIndex = element.toString().length() - "</option>".length();
-	    return element.toString().substring(beginIndex, endIndex);
+	    return "";
 	}
     }
 }

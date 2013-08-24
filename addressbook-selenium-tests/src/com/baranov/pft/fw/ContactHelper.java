@@ -17,6 +17,33 @@ public class ContactHelper extends HelperBase {
 	super(manager);
     }
 
+    private List<ContactData> cachedContacts;
+
+    public List<ContactData> getContacts() {
+	if (cachedContacts == null) {
+	    rebuildCache();
+	}
+	return cachedContacts;
+    }
+
+    private void rebuildCache() {
+	cachedContacts = new ArrayList<ContactData>();
+
+	// List<WebElement> checkboxes = findElements(By.name("selected[]"));
+	// for (WebElement checkbox : checkboxes) {
+	// ContactData contact = new ContactData();
+	// contact.setFullName(extractTitle(checkbox, "title"));
+	// cachedContacts.add(contact);
+	// }
+	List<WebElement> td = findElements(By
+		.xpath("//*[@id='maintable']//tr[@name='entry']"));
+	for (WebElement webElement : td) {
+	    ContactData contact = new ContactData();
+	    contact.setFullName(fullName);
+	    cachedContacts.add(contact);
+	}
+    }
+
     public void fillContactForm(ContactData contact) {
 	fillContactName(contact);
 	fillContactAddress(contact);
@@ -60,6 +87,7 @@ public class ContactHelper extends HelperBase {
     public void deleteContact(int index) {
 	editContactByIndex(index);
 	submitDelete();
+	cachedContacts = null;
     }
 
     private void submitDelete() {
@@ -100,17 +128,6 @@ public class ContactHelper extends HelperBase {
 		+ "]/td[6]/a/img"));
     }
 
-    public List<ContactData> getContacts() {
-	List<ContactData> contacts = new ArrayList<ContactData>();
-	List<WebElement> checkboxes = findElements(By.name("selected[]"));
-	for (WebElement checkbox : checkboxes) {
-	    ContactData contact = new ContactData();
-	    contact.setFullName(extractTitle(checkbox, "title"));
-	    contacts.add(contact);
-	}
-	return contacts;
-    }
-
     public String getFirstNameFromPage() {
 	String firstName;
 	WebElement textField = findElement(By.name("firstname"));
@@ -134,11 +151,11 @@ public class ContactHelper extends HelperBase {
 	int iter = 0;
 	List<WebElement> values = findElements(By
 		.xpath("//*[@name='new_group']/option"));
-	String[] listMonths = new String[values.size()];
+	String[] listGroups = new String[values.size()];
 	for (WebElement webElement : values) {
-	    listMonths[iter] = extractGroup(webElement);
+	    listGroups[iter] = extractGroup(webElement);
 	    iter++;
 	}
-	return listMonths;
+	return listGroups;
     }
 }
