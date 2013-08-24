@@ -135,9 +135,10 @@ public class TestBase {
     // Group name is selector, and the name can be obtain from DB or from
     // page, but taken group from page is broke conception of dataprovider!?
     public GroupData generateRandomGroup() {
-	// app.navigateTo().addNewPage();
-
-	GroupData group = new GroupData("[none]");
+	GroupData group = new GroupData();
+	String[] listGroups = app.getContactHelper().getListGroups();
+	int indexGroup = new Random().nextInt(listGroups.length);
+	group.setGroupName(listGroups[indexGroup]);
 	return group;
     }
 

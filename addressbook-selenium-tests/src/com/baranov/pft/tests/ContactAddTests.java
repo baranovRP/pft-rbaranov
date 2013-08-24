@@ -4,7 +4,6 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import org.testng.annotations.Test;
 
@@ -19,12 +18,6 @@ public class ContactAddTests extends TestBase {
 	List<ContactData> oldList = app.getContactHelper().getContacts();
 
 	app.navigateTo().addNewPage();
-
-	GroupData group = contact.getGroup();
-	String[] listGroups = app.getContactHelper().getListGroups();
-	int indexGroup = new Random().nextInt(listGroups.length);
-	group.setGroupName(listGroups[indexGroup]);
-	contact.setGroup(group);
 
 	app.getContactHelper().fillContactForm(contact);
 	app.getActionHelper().submitCreation();
