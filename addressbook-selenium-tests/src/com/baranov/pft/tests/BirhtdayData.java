@@ -77,4 +77,19 @@ public class BirhtdayData {
 	return true;
     }
 
+    public BirhtdayData withBDay(String bday) {
+	this.bday = bday;
+	return this;
+    }
+
+    public BirhtdayData withBMonth(String bmonth) {
+	this.bmonth = bmonth;
+	return this;
+    }
+
+    public BirhtdayData withBYear(String byear) {
+	this.byear = byear;
+	return this;
+    }
+
 }

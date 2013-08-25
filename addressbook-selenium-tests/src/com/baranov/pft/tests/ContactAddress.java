@@ -143,4 +143,43 @@ public class ContactAddress {
 	return true;
     }
 
+    public ContactAddress withAddress(String address) {
+	this.address = address;
+	return this;
+    }
+
+    public ContactAddress withHomePhone(String homePhone) {
+	this.homePhone = homePhone;
+	return this;
+    }
+
+    public ContactAddress withMobilePhone(String mobilePhone) {
+	this.mobilePhone = mobilePhone;
+	return this;
+    }
+
+    public ContactAddress withWorkPhone(String workPhone) {
+	this.workPhone = workPhone;
+	return this;
+    }
+
+    public ContactAddress withEmail(String email) {
+	this.email = email;
+	return this;
+    }
+
+    public ContactAddress withEmail2(String email2) {
+	this.email2 = email2;
+	return this;
+    }
+
+    public ContactAddress withAddress2(String address2) {
+	this.address2 = address2;
+	return this;
+    }
+
+    public ContactAddress withPhone2(String phone2) {
+	this.phone2 = phone2;
+	return this;
+    }
 }

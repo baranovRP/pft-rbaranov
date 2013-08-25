@@ -50,7 +50,6 @@ public class TestBase {
 	     */
 	    rString = generateRandomSequence().trim();
 	}
-
 	return rString;
     }
 
@@ -80,28 +79,24 @@ public class TestBase {
 		isValid = false;
 	    }
 	}
-
 	return isValid;
     }
 
     public <E> int getRandomIndex(List<E> oldList) {
-	Random rnd = new Random();
-	int index = rnd.nextInt(oldList.size() - 1);
-	return index;
+	return new Random().nextInt(oldList.size() - 1);
     }
 
     @DataProvider
     public Iterator<Object[]> randomValidContactGenerator() {
-	List<Object[]> list = new ArrayList<Object[]>();
 	app.navigateTo().addNewPage();
+	List<Object[]> list = new ArrayList<Object[]>();
 	for (int i = 0; i < 5; i++) {
-	    ContactData contact = new ContactData();
-	    contact.setFirstName(generateRandomString());
-	    contact.setSecondName(generateRandomString());
-	    contact.setFullName(contact.getFirstName(), contact.getSecondName());
-	    contact.setContactAddress(generateRandomAddress());
-	    contact.setBdata(generateRandomData());
-	    contact.setGroup(generateRandomGroup());
+	    ContactData contact = new ContactData()
+		    .withFirstName(generateRandomString())
+		    .withSecondName(generateRandomString()).withFullName()
+		    .withContactAddress(generateRandomAddress())
+		    .withBData(generateRandomData())
+		    .withGroup(generateRandomGroup());
 	    list.add(new Object[] { contact });
 	}
 	// ...
@@ -110,18 +105,17 @@ public class TestBase {
     }
 
     public BirhtdayData generateRandomData() {
-	BirhtdayData bdata = new BirhtdayData();
 	Random rnd = new Random();
-	bdata.setByear(Integer.toString(rnd.nextInt(10000)));
-	bdata.setBmonth(getRandomMonth());
-	bdata.setBday(getRandomDay(rnd.nextInt(32)));
+	BirhtdayData bdata = new BirhtdayData()
+		.withBYear(Integer.toString(rnd.nextInt(10000)))
+		.withBMonth(getRandomMonth())
+		.withBDay(getRandomDay(rnd.nextInt(32)));
 	return bdata;
     }
 
     public String getRandomMonth() {
 	String[] listMonths = app.getContactHelper().getListMonths();
-	int indexMonth = new Random().nextInt(listMonths.length);
-	return listMonths[indexMonth];
+	return listMonths[new Random().nextInt(listMonths.length)];
     }
 
     public String getRandomDay(int data) {
@@ -132,26 +126,22 @@ public class TestBase {
 	return bdata;
     }
 
-    // Group name is selector, and the name can be obtain from DB or from
-    // page, but taken group from page is broke conception of dataprovider!?
     public GroupData generateRandomGroup() {
-	GroupData group = new GroupData();
 	String[] listGroups = app.getContactHelper().getListGroups();
-	int indexGroup = new Random().nextInt(listGroups.length);
-	group.setGroupName(listGroups[indexGroup]);
-	return group;
+	return new GroupData(
+		listGroups[new Random().nextInt(listGroups.length)]);
     }
 
     public ContactAddress generateRandomAddress() {
-	ContactAddress address = new ContactAddress();
-	address.setAddress(generateRandomString());
-	address.setHomePhone(generateRandomString());
-	address.setMobilePhone(generateRandomString());
-	address.setWorkPhone(generateRandomString());
-	address.setEmail(generateRandomString());
-	address.setEmail2(generateRandomString());
-	address.setAddress2(generateRandomString());
-	address.setPhone2(generateRandomString());
+	ContactAddress address = new ContactAddress()
+		.withAddress(generateRandomString())
+		.withHomePhone(generateRandomString())
+		.withMobilePhone(generateRandomString())
+		.withWorkPhone(generateRandomString())
+		.withEmail(generateRandomString())
+		.withEmail2(generateRandomString())
+		.withAddress2(generateRandomString())
+		.withPhone2(generateRandomString());
 	return address;
     }
 

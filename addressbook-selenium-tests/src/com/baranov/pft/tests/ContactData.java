@@ -111,4 +111,34 @@ public class ContactData implements Comparable<ContactData> {
 	return "ContactData [fullName=" + fullName + "]";
     }
 
+    public ContactData withFirstName(String firstName) {
+	this.firstName = firstName;
+	return this;
+    }
+
+    public ContactData withSecondName(String secondName) {
+	this.secondName = secondName;
+	return this;
+    }
+
+    public ContactData withFullName() {
+	this.fullName = firstName + " " + secondName;
+	return this;
+    }
+
+    public ContactData withContactAddress(ContactAddress contactAddress) {
+	this.contactAddress = contactAddress;
+	return this;
+    }
+
+    public ContactData withBData(BirhtdayData bdata) {
+	this.bdata = bdata;
+	return this;
+    }
+
+    public ContactData withGroup(GroupData group) {
+	this.group = group;
+	return this;
+    }
+
 }

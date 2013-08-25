@@ -1,5 +1,6 @@
 package com.baranov.pft.tests;
 
+import static com.baranov.pft.fw.ContactHelper.CREATION;
 import static org.testng.Assert.assertEquals;
 
 import java.util.Collections;
@@ -12,16 +13,11 @@ public class ContactAddTests extends TestBase {
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactCreationWithValidData(ContactData contact)
 	    throws Exception {
-	app.navigateTo().mainPage();
 
 	// save old state
 	List<ContactData> oldList = app.getContactHelper().getContacts();
 
-	app.navigateTo().addNewPage();
-
-	app.getContactHelper().fillContactForm(contact);
-	app.getActionHelper().submitCreation();
-	app.navigateTo().mainPage();
+	app.getContactHelper().createContact(contact, CREATION);
 
 	// save new state
 	List<ContactData> newList = app.getContactHelper().getContacts();

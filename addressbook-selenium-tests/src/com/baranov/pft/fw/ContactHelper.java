@@ -12,7 +12,7 @@ import com.baranov.pft.tests.ContactData;
 public class ContactHelper extends HelperBase {
 
     public static boolean CREATION = true;
-    public static boolean MODIFICATION = true;
+    public static boolean MODIFICATION = false;
 
     public ContactHelper(ApplicationManager manager) {
 	super(manager);
@@ -21,6 +21,7 @@ public class ContactHelper extends HelperBase {
     private List<ContactData> cachedContacts;
 
     public List<ContactData> getContacts() {
+	manager.navigateTo().mainPage();
 	if (cachedContacts == null) {
 	    rebuildCache();
 	}
@@ -33,34 +34,68 @@ public class ContactHelper extends HelperBase {
 	List<WebElement> td = findElements(By
 		.xpath("//*[@id='maintable']//tr[@name='entry']"));
 	for (WebElement webElement : td) {
-	    String firstName = extractData(webElement, (By.xpath("./td[3]")));
-	    String secondName = extractData(webElement, (By.xpath("./td[2]")));
-	    String email = extractData(webElement, (By.xpath("./td/a")));
-	    String phone = extractData(webElement, (By.xpath("./td[5]")));
-	    ContactData contact = new ContactData();
-	    ContactAddress address = new ContactAddress();
-	    contact.setFirstName(firstName);
-	    contact.setSecondName(secondName);
-	    address.setEmail(email);
-	    address.setHomePhone(phone);
-	    contact.setContactAddress(address);
-	    contact.setFullName(firstName, secondName);
+	    ContactData contact = extractShortContact(webElement);
 	    cachedContacts.add(contact);
 	}
     }
 
-    public void fillContactForm(ContactData contact) {
-	fillContactName(contact);
-	fillContactAddress(contact);
-	fillBirthday(contact);
-	fillGroupName(contact);
+    public ContactHelper createContact(ContactData contact, boolean typeForm) {
+	manager.navigateTo().addNewPage();
+	fillContactForm(contact, typeForm);
+	submitCreation();
+	manager.navigateTo().mainPage();
+	rebuildCache();
+	return this;
     }
 
-    // field 'group' is absent on modification form
-    public void modifyContactForm(ContactData contact) {
+    public ContactHelper deleteContact(int index) {
+	manager.navigateTo().mainPage();
+	editContactByIndex(index);
+	submitDelete();
+	manager.navigateTo().mainPage();
+	rebuildCache();
+	return this;
+    }
+
+    public ContactHelper modifyContact(int index, ContactData contact,
+	    boolean typeForm) {
+	manager.navigateTo().mainPage();
+	initContactModification(index);
+	fillContactForm(contact, typeForm);
+	submitUpdate();
+	manager.navigateTo().mainPage();
+	rebuildCache();
+	return this;
+    }
+
+    // ---------------------------------------------------------------------------
+
+    public ContactHelper fillContactForm(ContactData contact, boolean formType) {
 	fillContactName(contact);
 	fillContactAddress(contact);
 	fillBirthday(contact);
+	if (formType == CREATION) {
+	    fillGroupName(contact);
+	} else {
+	    if (driver.findElements(By.name("new_group")).size() != 0) {
+		throw new Error(
+			"Group selector exists in contact modification form");
+	    }
+	}
+	return this;
+    }
+
+    public ContactData extractShortContact(WebElement webElement) {
+	String firstName = extractData(webElement, (By.xpath("./td[3]")));
+	String secondName = extractData(webElement, (By.xpath("./td[2]")));
+	String email = extractData(webElement, (By.xpath("./td/a")));
+	String phone = extractData(webElement, (By.xpath("./td[5]")));
+	ContactAddress address = new ContactAddress().withEmail(email)
+		.withHomePhone(phone);
+	ContactData contact = new ContactData().withFirstName(firstName)
+		.withSecondName(secondName).withContactAddress(address)
+		.withFullName();
+	return contact;
     }
 
     public void fillGroupName(ContactData contact) {
@@ -89,26 +124,30 @@ public class ContactHelper extends HelperBase {
 	type(By.name("byear"), contact.getBdata().getByear());
     }
 
-    public void deleteContact(int index) {
-	editContactByIndex(index);
-	submitDelete();
+    private void submitDelete() {
+	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
 	cachedContacts = null;
     }
 
-    private void submitDelete() {
-	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
+    public ContactHelper initContactModification(int index) {
+	editContactByIndex(index);
+	return this;
     }
 
-    public void initContactModification(int index) {
-	editContactByIndex(index);
+    public ContactHelper submitUpdate() {
+	click(By.xpath("//*[@id='content']//*[@value='Update']"));
+	cachedContacts = null;
+	return this;
+    }
+
+    public ContactHelper submitCreation() {
+	manager.getActionHelper().submitCreation();
+	cachedContacts = null;
+	return this;
     }
 
     public void viewContact(int index) {
 	detailsContactByIndex(index);
-    }
-
-    public void submitUpdate() {
-	click(By.xpath("//*[@id='content']//*[@value='Update']"));
     }
 
     public void submitModify() {
@@ -134,10 +173,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public String getFirstNameFromPage() {
-	String firstName;
-	WebElement textField = findElement(By.name("firstname"));
-	firstName = textField.getAttribute("value");
-	return firstName;
+	return findElement(By.name("firstname")).getAttribute("value");
     }
 
     public String[] getListMonths() {
@@ -163,4 +199,5 @@ public class ContactHelper extends HelperBase {
 	}
 	return listGroups;
     }
+
 }
