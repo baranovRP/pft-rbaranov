@@ -1,6 +1,5 @@
 package com.baranov.pft.fw;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import com.baranov.pft.tests.ContactAddress;
 import com.baranov.pft.tests.ContactData;
+import com.baranov.pft.utils.SortedListOf;
 
 public class ContactHelper extends HelperBase {
 
@@ -18,10 +18,9 @@ public class ContactHelper extends HelperBase {
 	super(manager);
     }
 
-    private List<ContactData> cachedContacts;
+    private SortedListOf<ContactData> cachedContacts;
 
-    public List<ContactData> getContacts() {
-	manager.navigateTo().mainPage();
+    public SortedListOf<ContactData> getContacts() {
 	if (cachedContacts == null) {
 	    rebuildCache();
 	}
@@ -29,8 +28,9 @@ public class ContactHelper extends HelperBase {
     }
 
     private void rebuildCache() {
-	cachedContacts = new ArrayList<ContactData>();
+	cachedContacts = new SortedListOf<ContactData>();
 
+	manager.navigateTo().mainPage();
 	List<WebElement> td = findElements(By
 		.xpath("//*[@id='maintable']//tr[@name='entry']"));
 	for (WebElement webElement : td) {
@@ -48,21 +48,22 @@ public class ContactHelper extends HelperBase {
 	return this;
     }
 
-    public ContactHelper deleteContact(int index) {
-	manager.navigateTo().mainPage();
+    public ContactHelper modifyContact(int index, ContactData contact,
+	    boolean typeForm) {
+	// manager.navigateTo().mainPage();
+	// initContactModification(index);
 	editContactByIndex(index);
-	submitDelete();
+	fillContactForm(contact, typeForm);
+	submitUpdate();
 	manager.navigateTo().mainPage();
 	rebuildCache();
 	return this;
     }
 
-    public ContactHelper modifyContact(int index, ContactData contact,
-	    boolean typeForm) {
-	manager.navigateTo().mainPage();
-	initContactModification(index);
-	fillContactForm(contact, typeForm);
-	submitUpdate();
+    public ContactHelper deleteContact(int index) {
+	// manager.navigateTo().mainPage();
+	editContactByIndex(index);
+	submitDelete();
 	manager.navigateTo().mainPage();
 	rebuildCache();
 	return this;
@@ -124,19 +125,8 @@ public class ContactHelper extends HelperBase {
 	type(By.name("byear"), contact.getBdata().getByear());
     }
 
-    private void submitDelete() {
-	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
-	cachedContacts = null;
-    }
-
     public ContactHelper initContactModification(int index) {
 	editContactByIndex(index);
-	return this;
-    }
-
-    public ContactHelper submitUpdate() {
-	click(By.xpath("//*[@id='content']//*[@value='Update']"));
-	cachedContacts = null;
 	return this;
     }
 
@@ -146,12 +136,26 @@ public class ContactHelper extends HelperBase {
 	return this;
     }
 
+    public ContactHelper submitUpdate() {
+	click(By.xpath("//*[@id='content']//*[@value='Update']"));
+	cachedContacts = null;
+	return this;
+    }
+
+    private ContactHelper submitDelete() {
+	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
+	cachedContacts = null;
+	return this;
+    }
+
     public void viewContact(int index) {
 	detailsContactByIndex(index);
     }
 
-    public void submitModify() {
+    public ContactHelper submitModify() {
 	click(By.xpath("//*[@value='Modify']"));
+	cachedContacts = null;
+	return this;
     }
 
     private void editContactByIndex(int index) {

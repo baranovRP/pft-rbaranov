@@ -1,12 +1,12 @@
 package com.baranov.pft.tests;
 
 import static com.baranov.pft.fw.ContactHelper.MODIFICATION;
-import static org.testng.Assert.assertEquals;
-
-import java.util.Collections;
-import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.testng.annotations.Test;
+
+import com.baranov.pft.utils.SortedListOf;
 
 public class ContactModificationTests extends TestBase {
 
@@ -14,20 +14,18 @@ public class ContactModificationTests extends TestBase {
     public void modifySomeContactWithValidData(ContactData contact) {
 
 	// save old state
-	List<ContactData> oldList = app.getContactHelper().getContacts();
+	SortedListOf<ContactData> oldList = app.getContactHelper()
+		.getContacts();
 
 	int index = getRandomIndex(oldList);
 
 	app.getContactHelper().modifyContact(index, contact, MODIFICATION);
 
 	// save new state
-	List<ContactData> newList = app.getContactHelper().getContacts();
+	SortedListOf<ContactData> newList = app.getContactHelper()
+		.getContacts();
 
 	// compare states
-	oldList.remove(index);
-	oldList.add(contact);
-	Collections.sort(newList);
-	Collections.sort(oldList);
-	assertEquals(newList, oldList);
+	assertThat(newList, equalTo(oldList.without(index).withAdded(contact)));
     }
 }

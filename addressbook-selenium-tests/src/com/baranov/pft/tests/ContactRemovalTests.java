@@ -1,31 +1,29 @@
 package com.baranov.pft.tests;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.Collections;
-import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.testng.annotations.Test;
+
+import com.baranov.pft.utils.SortedListOf;
 
 public class ContactRemovalTests extends TestBase {
 
     @Test
     public void deleteSomeContact() {
-
 	// save old state
-	List<ContactData> oldList = app.getContactHelper().getContacts();
+	SortedListOf<ContactData> oldList = app.getContactHelper()
+		.getContacts();
 
 	int index = getRandomIndex(oldList);
 
 	app.getContactHelper().deleteContact(index);
 
 	// save new state
-	List<ContactData> newList = app.getContactHelper().getContacts();
+	SortedListOf<ContactData> newList = app.getContactHelper()
+		.getContacts();
 
 	// compare states
-	oldList.remove(index);
-	Collections.sort(newList);
-	Collections.sort(oldList);
-	assertEquals(newList, oldList);
+	assertThat(newList, equalTo(oldList.without(index)));
     }
 }

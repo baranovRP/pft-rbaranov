@@ -1,6 +1,5 @@
 package com.baranov.pft.fw;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import com.baranov.pft.tests.ContactData;
 import com.baranov.pft.tests.GroupData;
+import com.baranov.pft.utils.SortedListOf;
 
 public class GroupHelper extends HelperBase {
 
@@ -15,9 +15,9 @@ public class GroupHelper extends HelperBase {
 	super(manager);
     }
 
-    private List<GroupData> cachedGroups;
+    private SortedListOf<GroupData> cachedGroups;
 
-    public List<GroupData> getGroups() {
+    public SortedListOf<GroupData> getGroups() {
 	if (cachedGroups == null) {
 	    rebuildCache();
 	}
@@ -25,7 +25,7 @@ public class GroupHelper extends HelperBase {
     }
 
     private void rebuildCache() {
-	cachedGroups = new ArrayList<GroupData>();
+	cachedGroups = new SortedListOf<GroupData>();
 
 	returnToGroupsPage();
 	List<WebElement> checkboxes = findElements(By.name("selected[]"));

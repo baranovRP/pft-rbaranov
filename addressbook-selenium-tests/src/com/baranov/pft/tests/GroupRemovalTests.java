@@ -1,18 +1,18 @@
 package com.baranov.pft.tests;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.Collections;
-import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.testng.annotations.Test;
+
+import com.baranov.pft.utils.SortedListOf;
 
 public class GroupRemovalTests extends TestBase {
 
     @Test
     public void deleteSomeGroup() {
 	// save old state
-	List<GroupData> oldList = app.getGroupHelper().getGroups();
+	SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
 
 	int index = getRandomIndex(oldList);
 
@@ -20,13 +20,9 @@ public class GroupRemovalTests extends TestBase {
 	app.getGroupHelper().deleteGroup(index);
 
 	// save new state
-	List<GroupData> newList = app.getGroupHelper().getGroups();
+	SortedListOf<GroupData> newList = app.getGroupHelper().getGroups();
 
 	// compare states
-	oldList.remove(index);
-	Collections.sort(oldList);
-	Collections.sort(newList);
-	assertEquals(newList, oldList);
-
+	assertThat(newList, equalTo(oldList.without(index)));
     }
 }

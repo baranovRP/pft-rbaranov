@@ -56,8 +56,8 @@ public class TestBase {
     private String generateRandomSequence() {
 	Random rnd = new Random();
 	// according to ASCII 32 is space and 126 is ~
-	int max = 126;
-	int min = 32;
+	int max = 90;
+	int min = 65;
 	int length = rnd.nextInt(20); // specify desire length of string
 	char buf[] = new char[length];
 	for (int i = 0; i < buf.length; i++) {
@@ -72,7 +72,7 @@ public class TestBase {
     }
 
     private boolean isValidCharacter(char symbol) {
-	char[] invalidChars = { '\'', '\\', '<', '_' };
+	char[] invalidChars = { '\'', '\\', '<', '>', '_', '`' };
 	boolean isValid = true;
 	for (char c : invalidChars) {
 	    if (c == symbol) {

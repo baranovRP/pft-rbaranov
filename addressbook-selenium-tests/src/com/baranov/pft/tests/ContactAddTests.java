@@ -1,12 +1,12 @@
 package com.baranov.pft.tests;
 
 import static com.baranov.pft.fw.ContactHelper.CREATION;
-import static org.testng.Assert.assertEquals;
-
-import java.util.Collections;
-import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.testng.annotations.Test;
+
+import com.baranov.pft.utils.SortedListOf;
 
 public class ContactAddTests extends TestBase {
 
@@ -15,17 +15,16 @@ public class ContactAddTests extends TestBase {
 	    throws Exception {
 
 	// save old state
-	List<ContactData> oldList = app.getContactHelper().getContacts();
+	SortedListOf<ContactData> oldList = app.getContactHelper()
+		.getContacts();
 
 	app.getContactHelper().createContact(contact, CREATION);
 
 	// save new state
-	List<ContactData> newList = app.getContactHelper().getContacts();
+	SortedListOf<ContactData> newList = app.getContactHelper()
+		.getContacts();
 
 	// compare states
-	oldList.add(contact);
-	Collections.sort(newList);
-	Collections.sort(oldList);
-	assertEquals(newList, oldList);
+	assertThat(newList, equalTo(oldList.withAdded(contact)));
     }
 }
