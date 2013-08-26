@@ -15,7 +15,7 @@ public class ContactData implements Comparable<ContactData> {
 	this.contactAddress = contactAddress;
 	this.bdata = bdata;
 	this.group = group;
-	this.fullName = firstName + " " + secondName;
+	this.fullName = secondName + " " + firstName;
     }
 
     public ContactData() {
@@ -70,7 +70,7 @@ public class ContactData implements Comparable<ContactData> {
     }
 
     public void setFullName(String firstName, String secondName) {
-	this.fullName = firstName + " " + secondName;
+	this.fullName = secondName + " " + firstName;
     }
 
     @Override
@@ -122,7 +122,7 @@ public class ContactData implements Comparable<ContactData> {
     }
 
     public ContactData withFullName() {
-	this.fullName = firstName + " " + secondName;
+	this.fullName = secondName + " " + firstName;
 	return this;
     }
 

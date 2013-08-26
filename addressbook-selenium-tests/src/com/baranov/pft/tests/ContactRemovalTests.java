@@ -11,6 +11,7 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void deleteSomeContact() {
+
 	// save old state
 	SortedListOf<ContactData> oldList = app.getContactHelper()
 		.getContacts();

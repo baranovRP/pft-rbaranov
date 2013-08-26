@@ -50,8 +50,7 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper modifyContact(int index, ContactData contact,
 	    boolean typeForm) {
-	// manager.navigateTo().mainPage();
-	// initContactModification(index);
+	manager.navigateTo().mainPage();
 	editContactByIndex(index);
 	fillContactForm(contact, typeForm);
 	submitUpdate();
@@ -61,7 +60,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public ContactHelper deleteContact(int index) {
-	// manager.navigateTo().mainPage();
+	manager.navigateTo().mainPage();
 	editContactByIndex(index);
 	submitDelete();
 	manager.navigateTo().mainPage();

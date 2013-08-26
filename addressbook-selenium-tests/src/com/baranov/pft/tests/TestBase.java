@@ -83,7 +83,8 @@ public class TestBase {
     }
 
     public <E> int getRandomIndex(List<E> oldList) {
-	return new Random().nextInt(oldList.size() - 1);
+	// return new Random().nextInt(oldList.size() - 1);
+	return new Random().nextInt(oldList.size());
     }
 
     @DataProvider

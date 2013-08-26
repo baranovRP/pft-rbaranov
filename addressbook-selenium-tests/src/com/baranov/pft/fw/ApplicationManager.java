@@ -18,7 +18,7 @@ public class ApplicationManager {
     public ApplicationManager() {
 	driver = new FirefoxDriver();
 	baseUrl = "http://localhost/";
-	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	driver.get(baseUrl + "addressbookv4.1.4/");
     }
 
