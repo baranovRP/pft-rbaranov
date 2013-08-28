@@ -16,7 +16,7 @@ public class ContactRemovalTests extends TestBase {
 	SortedListOf<ContactData> oldList = app.getContactHelper()
 		.getContacts();
 
-	int index = getRandomIndex(oldList);
+	int index = getRandomIndex(oldList.size());
 
 	app.getContactHelper().deleteContact(index);
 

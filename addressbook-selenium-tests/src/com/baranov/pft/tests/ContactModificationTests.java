@@ -1,6 +1,5 @@
 package com.baranov.pft.tests;
 
-import static com.baranov.pft.fw.ContactHelper.MODIFICATION;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -17,9 +16,9 @@ public class ContactModificationTests extends TestBase {
 	SortedListOf<ContactData> oldList = app.getContactHelper()
 		.getContacts();
 
-	int index = getRandomIndex(oldList);
+	int index = getRandomIndex(oldList.size());
 
-	app.getContactHelper().modifyContact(index, contact, MODIFICATION);
+	app.getContactHelper().modifyContact(index, contact);
 
 	// save new state
 	SortedListOf<ContactData> newList = app.getContactHelper()

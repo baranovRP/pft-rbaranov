@@ -73,4 +73,8 @@ public class SortedListOf<T extends Comparable<T>> extends ForwardingList<T> {
 	    return list.get(new Random().nextInt(size()));
 	}
     }
+
+    public int size() {
+	return list.size();
+    }
 }

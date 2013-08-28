@@ -82,9 +82,9 @@ public class TestBase {
 	return isValid;
     }
 
-    public <E> int getRandomIndex(List<E> oldList) {
+    public int getRandomIndex(int size) {
 	// return new Random().nextInt(oldList.size() - 1);
-	return new Random().nextInt(oldList.size());
+	return new Random().nextInt(size);
     }
 
     @DataProvider

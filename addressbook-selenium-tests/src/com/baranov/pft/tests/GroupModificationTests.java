@@ -14,7 +14,7 @@ public class GroupModificationTests extends TestBase {
 	// save old state
 	SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
 
-	int index = getRandomIndex(oldList);
+	int index = getRandomIndex(oldList.size());
 
 	// actions
 	app.getGroupHelper().modifyGroup(index, group);

@@ -1,6 +1,5 @@
 package com.baranov.pft.tests;
 
-import static com.baranov.pft.fw.ContactHelper.CREATION;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -18,7 +17,7 @@ public class ContactAddTests extends TestBase {
 	SortedListOf<ContactData> oldList = app.getContactHelper()
 		.getContacts();
 
-	app.getContactHelper().createContact(contact, CREATION);
+	app.getContactHelper().createContact(contact);
 
 	// save new state
 	SortedListOf<ContactData> newList = app.getContactHelper()
