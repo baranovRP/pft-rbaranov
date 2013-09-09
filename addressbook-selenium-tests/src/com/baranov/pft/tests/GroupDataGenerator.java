@@ -38,12 +38,6 @@ public class GroupDataGenerator {
 
     private static void saveGroupsToXmlFile(List<GroupData> groups, File file)
 	    throws IOException {
-	FileWriter writer = new FileWriter(file);
-	for (GroupData group : groups) {
-	    writer.write(group.getGroupName() + "," + group.getHeader() + ","
-		    + group.getFooter() + "\n");
-	}
-	writer.close();
     }
 
     private static void saveGroupsToCsvFile(List<GroupData> groups, File file)

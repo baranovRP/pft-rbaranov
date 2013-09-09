@@ -24,6 +24,11 @@ public class ContactDataGenerator {
 	File file = new File(args[1]);
 	String format = args[2];
 
+	if (file.exists()) {
+	    System.out.printf("File %s exists, please remove it manually.",
+		    file);
+	    return;
+	}
 	List<ContactData> groups = generateRandomContacts(amount);
 	if ("csv".equals(format)) {
 	    saveContactsToCsvFile(groups, file);
