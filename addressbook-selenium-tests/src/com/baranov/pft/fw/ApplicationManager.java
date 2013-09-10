@@ -1,9 +1,11 @@
 package com.baranov.pft.fw;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class ApplicationManager {
 
@@ -14,12 +16,21 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
     private ActionHelper actionHelper;
+    private Properties properties;
 
-    public ApplicationManager() {
-	driver = new FirefoxDriver();
-	baseUrl = "http://localhost/";
+    public ApplicationManager(Properties properties) {
+	this.properties = properties;
+	String browser = properties.getProperty("browser");
+	if ("firefox".equals(browser)) {
+	    driver = new FirefoxDriver();
+	} else if ("ie".equals(browser)) {
+	    driver = new InternetExplorerDriver();
+	} else {
+	    throw new Error("Unsupported browser: " + browser);
+	}
+	baseUrl = properties.getProperty("baseUrl");
 	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	driver.get(baseUrl + "addressbookv4.1.4/");
+	driver.get(baseUrl);
     }
 
     public void stop() {
