@@ -3,6 +3,7 @@ package com.baranov.pft.tests;
 import static com.baranov.pft.tests.ContactDataGenerator.generateRandomContacts;
 import static com.baranov.pft.tests.GroupDataGenerator.generateRandomGroups;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,11 +29,12 @@ public class TestBase {
     }
 
     @DataProvider
-    public Iterator<Object[]> randomValidGroupGenerator() {
+    public Iterator<Object[]> randomValidGroupGenerator() throws IOException {
 	return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
     }
 
-    private List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
+    public static List<Object[]> wrapGroupsForDataProvider(
+	    List<GroupData> groups) {
 	List<Object[]> list = new ArrayList<>();
 	for (GroupData group : groups) {
 	    list.add(new Object[] { group });
@@ -46,7 +48,7 @@ public class TestBase {
 		.iterator();
     }
 
-    private List<Object[]> wrapContactsForDataProvider(
+    public static List<Object[]> wrapContactsForDataProvider(
 	    List<ContactData> contacts) {
 	List<Object[]> list = new ArrayList<>();
 	for (ContactData contact : contacts) {
