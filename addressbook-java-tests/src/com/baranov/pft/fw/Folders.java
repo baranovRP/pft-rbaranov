@@ -16,6 +16,16 @@ public class Folders {
 		return newList;
 	}
 
+	public Folders withoutDeleted(int index) {
+		Folders newList = new Folders(storedFolders);
+		newList.storedFolders.remove(index);
+		return newList;
+	}
+
+	public int length() {
+		return storedFolders.size();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -9,6 +9,9 @@ import org.netbeans.jemmy.operators.JTreeOperator;
 
 public class FolderHelper extends HelpersBase {
 
+	public static boolean YES = true;
+	public static boolean NO = false;
+
 	public FolderHelper(ApplicationManager applicationManager) {
 		super(applicationManager);
 	}
@@ -29,5 +32,25 @@ public class FolderHelper extends HelpersBase {
 		new JTextFieldOperator(dialog).setText(folderName);
 		new JButtonOperator(dialog, "OK").push();
 		return waitMessageDialog("Warning", 3000);
+	}
+
+	public void deleteFolderYES(int index) {
+		tryToDeleteFolder(index, YES);
+	}
+
+	public void deleteFolderNO(int index) {
+		tryToDeleteFolder(index, NO);
+	}
+
+	public void tryToDeleteFolder(int index, boolean decision) {
+		JTreeOperator tree = new JTreeOperator(mainFrame);
+		tree.selectRow(index);
+		manager.getMenuHelper().pushDeleteFolder();
+		JDialogOperator dialog = new JDialogOperator(mainFrame);
+		if (decision) {
+			new JButtonOperator(dialog, "Yes").push();
+		} else {
+			new JButtonOperator(dialog, "No").push();
+		}
 	}
 }
