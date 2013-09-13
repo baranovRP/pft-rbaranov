@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/romul/.eclipse/org.eclipse.platform_4.2.0_248562372/plugins/org.testng.eclipse_6.8.6.20130607_0745/lib/testng.jar" sourcepath="C:/Users/romul/.eclipse/org.eclipse.platform_4.2.0_248562372/plugins/org.testng.eclipse_6.8.6.20130607_0745/lib/testng-sources.jar"/>
+	<classpathentry kind="lib" path="lib/AutoItX4Java.jar"/>
+	<classpathentry kind="lib" path="lib/jacob.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
