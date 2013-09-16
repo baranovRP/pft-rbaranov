@@ -10,7 +10,7 @@ public class Contact {
 		return this;
 	}
 
-	public Contact setLastName(String secondName) {
+	public Contact setSecondName(String secondName) {
 		this.secondName = secondName;
 		return this;
 	}
@@ -54,6 +54,16 @@ public class Contact {
 		} else if (!secondName.equals(other.secondName))
 			return false;
 		return true;
+	}
+
+	public Contact withFirstName(String firstName) {
+		this.firstName = firstName;
+		return this;
+	}
+
+	public Contact withSecondName(String secondName) {
+		this.secondName = secondName;
+		return this;
 	}
 
 }

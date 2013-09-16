@@ -51,7 +51,7 @@ public class ContactHelper extends HelpersBase {
 
 	public Contact getContactData() {
 		Contact contact = new Contact().setFirstName(
-				manager.getAutoItHelper().getText("TDBEdit12")).setLastName(
+				manager.getAutoItHelper().getText("TDBEdit12")).setSecondName(
 				manager.getAutoItHelper().getText("TDBEdit11"));
 		return contact;
 	}

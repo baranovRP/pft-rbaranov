@@ -1,15 +1,23 @@
 package com.baranov.pft.tests;
 
+import static com.baranov.pft.fw.ContactDataGenerator.generateRandomContacts;
+
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.baranov.pft.fw.ApplicationManager;
+import com.baranov.pft.fw.Contact;
 
 public class TestBase {
 	protected Logger log = Logger.getLogger("TEST");
@@ -40,5 +48,20 @@ public class TestBase {
 		log.info("tearDown start");
 		ApplicationManager.getInstance(null).stop();
 		log.info("tearDown end");
+	}
+
+	@DataProvider
+	public Iterator<Object[]> randomValidContactGenerator() throws IOException {
+		return wrapContactsForDataProvider(generateRandomContacts(5))
+				.iterator();
+	}
+
+	public static List<Object[]> wrapContactsForDataProvider(
+			List<Contact> contacts) {
+		List<Object[]> list = new ArrayList<>();
+		for (Contact contact : contacts) {
+			list.add(new Object[] { contact });
+		}
+		return list;
 	}
 }
