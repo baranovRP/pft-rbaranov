@@ -2,15 +2,30 @@ package com.baranov.pft.fw;
 
 public class ContactHelper extends HelpersBase {
 
+	public static boolean YES = true;
+	public static boolean NO = false;
+
 	public ContactHelper(ApplicationManager applicationManager) {
 		super(applicationManager);
 	}
 
-	public void createContact(Contact contact) {
+	public void inputContactData(Contact contact, boolean desicion) {
 		initContactCreation();
 		fillContactForm(contact);
-		confirmContactCreation();
+		if (desicion) {
+			confirmContactCreation();
+		} else {
+			cancelContactCreation();
+		}
 
+	}
+
+	public void createContact(Contact contact) {
+		inputContactData(contact, YES);
+	}
+
+	public void cancelCreateContact(Contact contact) {
+		inputContactData(contact, NO);
 	}
 
 	public void initContactCreation() {

@@ -13,4 +13,11 @@ public class TestContactCreation extends TestBase {
 		Contact createdContact = app.getContactHelper().getFirstContact();
 		Assert.assertEquals(contact, createdContact);
 	}
+
+	@Test(dataProvider = "randomValidContactGenerator")
+	public void shouldNotCreateContact(Contact contact) {
+		app.getContactHelper().cancelCreateContact(contact);
+		Contact createdContact = app.getContactHelper().getFirstContact();
+		Assert.assertNotEquals(contact, createdContact);
+	}
 }

@@ -52,7 +52,7 @@ public class TestBase {
 
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() throws IOException {
-		return wrapContactsForDataProvider(generateRandomContacts(5))
+		return wrapContactsForDataProvider(generateRandomContacts(1))
 				.iterator();
 	}
 
