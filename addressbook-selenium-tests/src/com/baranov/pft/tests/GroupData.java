@@ -1,6 +1,7 @@
 package com.baranov.pft.tests;
 
 public class GroupData implements Comparable<GroupData> {
+    private String id;
     private String groupName;
     private String header;
     private String footer;
@@ -16,6 +17,14 @@ public class GroupData implements Comparable<GroupData> {
 	this.groupName = groupName;
 	this.header = header;
 	this.footer = footer;
+    }
+
+    public String getId() {
+	return id;
+    }
+
+    public void setId(String id) {
+	this.id = id;
     }
 
     public String getGroupName() {
@@ -81,6 +90,11 @@ public class GroupData implements Comparable<GroupData> {
 		.compareTo(other.getGroupName().toLowerCase());
     }
 
+    public GroupData withId(String id) {
+	this.setId(id);
+	return this;
+    }
+
     public GroupData withName(String groupName) {
 	this.groupName = groupName;
 	return this;
@@ -95,5 +109,4 @@ public class GroupData implements Comparable<GroupData> {
 	this.footer = footer;
 	return this;
     }
-
 }

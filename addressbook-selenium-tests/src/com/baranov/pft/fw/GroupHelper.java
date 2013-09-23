@@ -1,15 +1,12 @@
 package com.baranov.pft.fw;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import com.baranov.pft.tests.ContactData;
 import com.baranov.pft.tests.GroupData;
 import com.baranov.pft.utils.SortedListOf;
 
-public class GroupHelper extends HelperBase {
+public class GroupHelper extends WebDriverHelperBase {
 
     public GroupHelper(ApplicationManager manager) {
 	super(manager);
@@ -28,11 +25,13 @@ public class GroupHelper extends HelperBase {
 	cachedGroups = new SortedListOf<GroupData>();
 
 	returnToGroupsPage();
-	List<WebElement> checkboxes = findElements(By.name("selected[]"));
-	for (WebElement checkbox : checkboxes) {
-	    String groupName = extractTitle(checkbox, "title");
-	    cachedGroups.add(new GroupData().withName(groupName));
-	}
+	// List<WebElement> checkboxes = findElements(By.name("selected[]"));
+	// for (WebElement checkbox : checkboxes) {
+	// String groupName = extractTitle(checkbox, "title");
+	// cachedGroups.add(new GroupData().withName(groupName));
+	// }
+	cachedGroups = new SortedListOf<GroupData>(manager.getHibernateHelper()
+		.listGroups());
     }
 
     public GroupHelper createGroup(GroupData group) {

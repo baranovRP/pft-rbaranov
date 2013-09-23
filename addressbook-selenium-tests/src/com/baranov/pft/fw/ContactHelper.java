@@ -9,7 +9,7 @@ import com.baranov.pft.tests.ContactAddress;
 import com.baranov.pft.tests.ContactData;
 import com.baranov.pft.utils.SortedListOf;
 
-public class ContactHelper extends HelperBase {
+public class ContactHelper extends WebDriverHelperBase {
 
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
