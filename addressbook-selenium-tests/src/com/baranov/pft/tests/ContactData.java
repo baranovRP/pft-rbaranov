@@ -1,12 +1,13 @@
 package com.baranov.pft.tests;
 
 public class ContactData implements Comparable<ContactData> {
+    private String id;
     private String firstName;
     private String secondName;
     private String fullName;
-    private ContactAddress contactAddress;
-    private BirhtdayData bdata;
-    private GroupData group;
+    private ContactAddress contactAddress = new ContactAddress();
+    private BirhtdayData bdata = new BirhtdayData();
+    private GroupData group = new GroupData();
 
     public ContactData(String firstName, String secondName,
 	    ContactAddress contactAddress, BirhtdayData bdata, GroupData group) {
@@ -19,6 +20,14 @@ public class ContactData implements Comparable<ContactData> {
     }
 
     public ContactData() {
+    }
+
+    public String getId() {
+	return id;
+    }
+
+    public void setId(String id) {
+	this.id = id;
     }
 
     public String getFirstName() {
@@ -35,6 +44,7 @@ public class ContactData implements Comparable<ContactData> {
 
     public void setSecondName(String secondName) {
 	this.secondName = secondName;
+	setFullName(this.firstName, this.secondName);
     }
 
     public ContactAddress getContactAddress() {
@@ -45,6 +55,70 @@ public class ContactData implements Comparable<ContactData> {
 	this.contactAddress = contactAddress;
     }
 
+    public String getAddress() {
+	return contactAddress.getAddress();
+    }
+
+    public void setAddress(String address) {
+	contactAddress.setAddress(address);
+    }
+
+    public String getHomePhone() {
+	return contactAddress.getHomePhone();
+    }
+
+    public void setHomePhone(String homePhone) {
+	contactAddress.setHomePhone(homePhone);
+    }
+
+    public String getMobilePhone() {
+	return contactAddress.getMobilePhone();
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+	contactAddress.setMobilePhone(mobilePhone);
+    }
+
+    public String getWorkPhone() {
+	return contactAddress.getWorkPhone();
+    }
+
+    public void setWorkPhone(String workPhone) {
+	contactAddress.setWorkPhone(workPhone);
+    }
+
+    public String getEmail() {
+	return contactAddress.getEmail();
+    }
+
+    public void setEmail(String email) {
+	contactAddress.setEmail(email);
+    }
+
+    public String getEmail2() {
+	return contactAddress.getEmail2();
+    }
+
+    public void setEmail2(String email2) {
+	contactAddress.setEmail2(email2);
+    }
+
+    public String getAddress2() {
+	return contactAddress.getAddress2();
+    }
+
+    public void setAddress2(String address2) {
+	contactAddress.setAddress2(address2);
+    }
+
+    public String getPhone2() {
+	return contactAddress.getPhone2();
+    }
+
+    public void setPhone2(String phone2) {
+	contactAddress.setPhone2(phone2);
+    }
+
     public BirhtdayData getBdata() {
 	return bdata;
     }
@@ -53,12 +127,44 @@ public class ContactData implements Comparable<ContactData> {
 	this.bdata = bdata;
     }
 
+    public String getBday() {
+	return bdata.getBday();
+    }
+
+    public void setBday(String bday) {
+	bdata.setBday(bday);
+    }
+
+    public String getBmonth() {
+	return bdata.getBmonth();
+    }
+
+    public void setBmonth(String bmonth) {
+	bdata.setBmonth(bmonth);
+    }
+
+    public String getByear() {
+	return bdata.getByear();
+    }
+
+    public void setByear(String byear) {
+	bdata.setByear(byear);
+    }
+
     public GroupData getGroup() {
 	return group;
     }
 
     public void setGroup(GroupData group) {
 	this.group = group;
+    }
+
+    public String getGroupName() {
+	return group.getGroupName();
+    }
+
+    public void setGroupName(String groupName) {
+	group.setGroupName(groupName);
     }
 
     public String getFullName() {
@@ -109,6 +215,11 @@ public class ContactData implements Comparable<ContactData> {
     @Override
     public String toString() {
 	return "ContactData [fullName=" + fullName + "]";
+    }
+
+    public ContactData withId(String id) {
+	this.setId(id);
+	return this;
     }
 
     public ContactData withFirstName(String firstName) {
