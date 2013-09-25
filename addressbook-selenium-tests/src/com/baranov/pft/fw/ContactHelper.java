@@ -28,15 +28,8 @@ public class ContactHelper extends WebDriverHelperBase {
     }
 
     private void rebuildCache() {
-	cachedContacts = new SortedListOf<ContactData>();
-
-	manager.navigateTo().mainPage();
-	List<WebElement> td = findElements(By
-		.xpath("//*[@id='maintable']//tr[@name='entry']"));
-	for (WebElement webElement : td) {
-	    ContactData contact = extractShortContact(webElement);
-	    cachedContacts.add(contact);
-	}
+	cachedContacts = new SortedListOf<ContactData>(manager
+		.getHibernateHelper().listContacts());
     }
 
     public ContactHelper createContact(ContactData contact) {

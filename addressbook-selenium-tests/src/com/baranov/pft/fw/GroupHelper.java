@@ -22,14 +22,6 @@ public class GroupHelper extends WebDriverHelperBase {
     }
 
     private void rebuildCache() {
-	// cachedGroups = new SortedListOf<GroupData>();
-	//
-	// returnToGroupsPage();
-	// List<WebElement> checkboxes = findElements(By.name("selected[]"));
-	// for (WebElement checkbox : checkboxes) {
-	// String groupName = extractTitle(checkbox, "title");
-	// cachedGroups.add(new GroupData().withName(groupName));
-	// }
 	cachedGroups = new SortedListOf<GroupData>(manager.getHibernateHelper()
 		.listGroups());
     }
