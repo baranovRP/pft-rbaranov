@@ -1,6 +1,9 @@
 package com.baranov.pft.fw;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.baranov.pft.tests.ContactData;
 import com.baranov.pft.tests.GroupData;
@@ -12,27 +15,14 @@ public class GroupHelper extends WebDriverHelperBase {
 	super(manager);
     }
 
-    private SortedListOf<GroupData> cachedGroups;
-
-    public SortedListOf<GroupData> getGroups() {
-	if (cachedGroups == null) {
-	    rebuildCache();
-	}
-	return cachedGroups;
-    }
-
-    private void rebuildCache() {
-	cachedGroups = new SortedListOf<GroupData>(manager.getHibernateHelper()
-		.listGroups());
-    }
-
     public GroupHelper createGroup(GroupData group) {
 	returnToGroupsPage();
 	initGroupCreation();
 	fillGroupForm(group);
 	submitGroupCreation();
 	returnToGroupsPage();
-	rebuildCache();
+	// update model
+	manager.getModel().addGroup(group);
 	return this;
     }
 
@@ -41,7 +31,7 @@ public class GroupHelper extends WebDriverHelperBase {
 	fillGroupForm(group);
 	submitGroupModification();
 	returnToGroupsPage();
-	rebuildCache();
+	manager.getModel().removeGroup(index).addGroup(group);
 	return this;
     }
 
@@ -49,11 +39,23 @@ public class GroupHelper extends WebDriverHelperBase {
 	selectGroupByIndex(index);
 	submitGroupDeletion();
 	returnToGroupsPage();
-	rebuildCache();
+	manager.getModel().removeGroup(index);
 	return this;
     }
 
     // ---------------------------------------------------------
+
+    public SortedListOf<GroupData> getUiGroups() {
+	SortedListOf<GroupData> groups = new SortedListOf<GroupData>();
+
+	returnToGroupsPage();
+	List<WebElement> checkboxes = findElements(By.name("selected[]"));
+	for (WebElement checkbox : checkboxes) {
+	    String groupName = extractTitle(checkbox, "title");
+	    groups.add(new GroupData().withName(groupName));
+	}
+	return groups;
+    }
 
     public GroupHelper fillGroupForm(GroupData group) {
 	type(By.name("group_name"), group.getGroupName());
@@ -84,19 +86,16 @@ public class GroupHelper extends WebDriverHelperBase {
 
     public GroupHelper submitGroupCreation() {
 	manager.getActionHelper().submitCreation();
-	cachedGroups = null;
 	return this;
     }
 
     public GroupHelper submitGroupModification() {
 	manager.getActionHelper().submitUpdate();
-	cachedGroups = null;
 	return this;
     }
 
     public void submitGroupDeletion() {
 	click(By.name("delete"));
-	cachedGroups = null;
     }
 
     public GroupHelper returnToGroupsPage() {

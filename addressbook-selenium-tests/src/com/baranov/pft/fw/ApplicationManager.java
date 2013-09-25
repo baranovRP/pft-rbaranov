@@ -18,13 +18,20 @@ public class ApplicationManager {
     private ActionHelper actionHelper;
     private Properties properties;
     private HibernateHelper hibernateHelper;
+    private ApplicationModel model;
 
     public ApplicationManager(Properties properties) {
 	this.properties = properties;
+	model = new ApplicationModel();
+	model.setGroups(getHibernateHelper().listGroups());
     }
 
     public void stop() {
 	driver.quit();
+    }
+
+    public ApplicationModel getModel() {
+	return model;
     }
 
     public NavigationHelper navigateTo() {
@@ -55,6 +62,13 @@ public class ApplicationManager {
 	return actionHelper;
     }
 
+    public HibernateHelper getHibernateHelper() {
+	if (hibernateHelper == null) {
+	    hibernateHelper = new HibernateHelper(this);
+	}
+	return hibernateHelper;
+    }
+
     public WebDriver getDriver() {
 	if (driver == null) {
 	    String browser = properties.getProperty("browser");
@@ -76,11 +90,8 @@ public class ApplicationManager {
 	return driver;
     }
 
-    public HibernateHelper getHibernateHelper() {
-	if (hibernateHelper == null) {
-	    hibernateHelper = new HibernateHelper(this);
-	}
-	return hibernateHelper;
+    public String getProperty(String key) {
+	return properties.getProperty(key);
     }
 
 }
