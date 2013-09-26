@@ -20,7 +20,7 @@ public class GroupRemovalTests extends TestBase {
 	app.getGroupHelper().deleteGroup(index);
 
 	// save new state
-	SortedListOf<GroupData> newList = app.getModel().getGroups();
+	SortedListOf<GroupData> newList = app.getGroupModel().getGroups();
 
 	// compare states
 	assertThat(newList, equalTo(oldList.without(index)));

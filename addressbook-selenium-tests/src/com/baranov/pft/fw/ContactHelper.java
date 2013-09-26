@@ -18,26 +18,12 @@ public class ContactHelper extends WebDriverHelperBase {
 	super(manager);
     }
 
-    private SortedListOf<ContactData> cachedContacts;
-
-    public SortedListOf<ContactData> getContacts() {
-	if (cachedContacts == null) {
-	    rebuildCache();
-	}
-	return cachedContacts;
-    }
-
-    private void rebuildCache() {
-	cachedContacts = new SortedListOf<ContactData>(manager
-		.getHibernateHelper().listContacts());
-    }
-
     public ContactHelper createContact(ContactData contact) {
 	manager.navigateTo().addNewPage();
 	fillContactForm(contact, CREATION);
 	submitCreation();
 	manager.navigateTo().mainPage();
-	rebuildCache();
+	manager.getContactModel().addContact(contact);
 	return this;
     }
 
@@ -47,7 +33,7 @@ public class ContactHelper extends WebDriverHelperBase {
 	fillContactForm(contact, MODIFICATION);
 	submitUpdate();
 	manager.navigateTo().mainPage();
-	rebuildCache();
+	manager.getContactModel().removeContact(index).addContact(contact);
 	return this;
     }
 
@@ -56,11 +42,24 @@ public class ContactHelper extends WebDriverHelperBase {
 	editContactByIndex(index);
 	submitDelete();
 	manager.navigateTo().mainPage();
-	rebuildCache();
+	manager.getContactModel().removeContact(index);
 	return this;
     }
 
     // ---------------------------------------------------------------------------
+
+    public SortedListOf<ContactData> getUiContacts() {
+	SortedListOf<ContactData> contacts = new SortedListOf<ContactData>();
+
+	manager.navigateTo().mainPage();
+	List<WebElement> td = findElements(By
+		.xpath("//*[@id='maintable']//tr[@name='entry']"));
+	for (WebElement webElement : td) {
+	    ContactData contact = extractShortContact(webElement);
+	    contacts.add(contact);
+	}
+	return contacts;
+    }
 
     public ContactHelper fillContactForm(ContactData contact, boolean formType) {
 	fillContactName(contact);
@@ -123,19 +122,16 @@ public class ContactHelper extends WebDriverHelperBase {
 
     public ContactHelper submitCreation() {
 	manager.getActionHelper().submitCreation();
-	cachedContacts = null;
 	return this;
     }
 
     public ContactHelper submitUpdate() {
 	click(By.xpath("//*[@id='content']//*[@value='Update']"));
-	cachedContacts = null;
 	return this;
     }
 
     public ContactHelper submitDelete() {
 	click(By.xpath("//*[@id='content']//*[@value='Delete']"));
-	cachedContacts = null;
 	return this;
     }
 
@@ -145,7 +141,6 @@ public class ContactHelper extends WebDriverHelperBase {
 
     public ContactHelper submitModify() {
 	click(By.xpath("//*[@value='Modify']"));
-	cachedContacts = null;
 	return this;
     }
 

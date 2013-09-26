@@ -18,20 +18,27 @@ public class ApplicationManager {
     private ActionHelper actionHelper;
     private Properties properties;
     private HibernateHelper hibernateHelper;
-    private ApplicationModel model;
+    private ApplicationGroupModel groupModel;
+    private ApplicationContactModel contactModel;
 
     public ApplicationManager(Properties properties) {
 	this.properties = properties;
-	model = new ApplicationModel();
-	model.setGroups(getHibernateHelper().listGroups());
+	groupModel = new ApplicationGroupModel();
+	groupModel.setGroups(getHibernateHelper().listGroups());
+	contactModel = new ApplicationContactModel();
+	contactModel.setContacts(getHibernateHelper().listContacts());
     }
 
     public void stop() {
 	driver.quit();
     }
 
-    public ApplicationModel getModel() {
-	return model;
+    public ApplicationGroupModel getGroupModel() {
+	return groupModel;
+    }
+
+    public ApplicationContactModel getContactModel() {
+	return contactModel;
     }
 
     public NavigationHelper navigateTo() {

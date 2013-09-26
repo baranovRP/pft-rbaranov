@@ -5,7 +5,7 @@ import java.util.List;
 import com.baranov.pft.tests.GroupData;
 import com.baranov.pft.utils.SortedListOf;
 
-public class ApplicationModel {
+public class ApplicationGroupModel {
     private SortedListOf<GroupData> groups;
 
     public SortedListOf<GroupData> getGroups() {
@@ -20,8 +20,10 @@ public class ApplicationModel {
 	groups.add(group);
     }
 
-    public ApplicationModel removeGroup(int index) {
+    public ApplicationGroupModel removeGroup(int index) {
 	groups.remove(index);
 	return this;
     }
+    
+    
 }

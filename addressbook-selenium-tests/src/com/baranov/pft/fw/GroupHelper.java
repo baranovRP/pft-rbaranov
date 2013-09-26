@@ -22,7 +22,7 @@ public class GroupHelper extends WebDriverHelperBase {
 	submitGroupCreation();
 	returnToGroupsPage();
 	// update model
-	manager.getModel().addGroup(group);
+	manager.getGroupModel().addGroup(group);
 	return this;
     }
 
@@ -31,7 +31,7 @@ public class GroupHelper extends WebDriverHelperBase {
 	fillGroupForm(group);
 	submitGroupModification();
 	returnToGroupsPage();
-	manager.getModel().removeGroup(index).addGroup(group);
+	manager.getGroupModel().removeGroup(index).addGroup(group);
 	return this;
     }
 
@@ -39,7 +39,7 @@ public class GroupHelper extends WebDriverHelperBase {
 	selectGroupByIndex(index);
 	submitGroupDeletion();
 	returnToGroupsPage();
-	manager.getModel().removeGroup(index);
+	manager.getGroupModel().removeGroup(index);
 	return this;
     }
 

@@ -31,17 +31,17 @@ public class GroupCreationTests extends TestBase {
 	app.getGroupHelper().createGroup(group);
 
 	// save new state
-	SortedListOf<GroupData> newList = app.getModel().getGroups();
+	SortedListOf<GroupData> newList = app.getGroupModel().getGroups();
 	// compare state
 	assertThat(newList, equalTo(oldList.withAdded(group)));
 
 	if (wantToCheck()) {
 	    if ("yes".equals(app.getProperty("check.db"))) {
-		assertThat(app.getModel().getGroups(), equalTo(app
+		assertThat(app.getGroupModel().getGroups(), equalTo(app
 			.getHibernateHelper().listGroups()));
 	    }
 	    if ("yes".equals(app.getProperty("check.ui"))) {
-		assertThat(app.getModel().getGroups(), equalTo(app
+		assertThat(app.getGroupModel().getGroups(), equalTo(app
 			.getGroupHelper().getUiGroups()));
 	    }
 	}
