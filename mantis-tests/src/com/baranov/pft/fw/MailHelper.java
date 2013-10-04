@@ -23,6 +23,8 @@ public class MailHelper extends HelperBase {
 			store = session.getStore("pop3");
 			store.connect(manager.getProperty("mailserver"), user, password);
 			Folder folder = store.getDefaultFolder().getFolder("INBOX");
+			// Folder folder =
+			// store.getDefaultFolder().getFolder("address-error");
 			folder.open(Folder.READ_WRITE);
 			if (folder.getMessageCount() != 1) {
 				return null;

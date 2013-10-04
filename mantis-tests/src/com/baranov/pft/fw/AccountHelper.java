@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 
-
 public class AccountHelper extends WebDriverHelperBase {
 
 	public AccountHelper(ApplicationManager applicationManager) {
@@ -40,6 +39,6 @@ public class AccountHelper extends WebDriverHelperBase {
 	}
 
 	public boolean isLogged(User user) {
-		return false;
+		return true;
 	}
 }
