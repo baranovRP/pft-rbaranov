@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class AccountHelper extends WebDriverHelperBase {
 
@@ -17,6 +18,13 @@ public class AccountHelper extends WebDriverHelperBase {
 		type(By.name("username"), user.login);
 		type(By.name("email"), user.email);
 		click(By.cssSelector("input.button"));
+
+		pause(3000);
+		WebElement errorMsg = findElement(By
+				.cssSelector("table.width50 tbody tr td p"));
+		if (errorMsg != null) {
+			throw new RuntimeException(errorMsg.getText());
+		}
 
 		pause(3000);
 		String msg = manager.getMailHelper().getNewMail(user.login,
@@ -38,7 +46,17 @@ public class AccountHelper extends WebDriverHelperBase {
 		}
 	}
 
-	public boolean isLogged(User user) {
-		return true;
+	public String loggedUser() {
+		WebElement element = findElement(By
+				.cssSelector("td.login-info-left span"));
+		return element.getText();
+	}
+
+	public void login(User user) {
+		openUrl("/");
+		type(By.name("username"), user.login);
+		type(By.name("password"), user.password);
+		click(By.cssSelector("input.button"));
+
 	}
 }

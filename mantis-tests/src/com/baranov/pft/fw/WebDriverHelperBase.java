@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+
 public abstract class WebDriverHelperBase extends HelperBase {
 
 	protected WebDriver driver;
@@ -72,7 +74,12 @@ public abstract class WebDriverHelperBase extends HelperBase {
 	}
 
 	protected WebElement findElement(By locator) {
-		return driver.findElement(locator);
+		try {
+			return driver.findElement(locator);
+		} catch (ElementNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	protected List<WebElement> findElements(By locator) {
