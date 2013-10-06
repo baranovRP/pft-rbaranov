@@ -17,6 +17,8 @@ public class ApplicationManager {
 	private AccountHelper accountHelper;
 	private MailHelper mailHelper;
 	private JamesHelper jamesHelper;
+	private UserHelper userHelper;
+	private NavigationHelper navigationHelper;
 
 	public ApplicationManager(Properties properties) {
 		this.properties = properties;
@@ -77,5 +79,19 @@ public class ApplicationManager {
 			jamesHelper = new JamesHelper(this);
 		}
 		return jamesHelper;
+	}
+
+	public UserHelper getUserHelper() {
+		if (userHelper == null) {
+			userHelper = new UserHelper(this);
+		}
+		return userHelper;
+	}
+
+	public NavigationHelper navigateTo() {
+		if (navigationHelper == null) {
+			navigationHelper = new NavigationHelper(this);
+		}
+		return navigationHelper;
 	}
 }

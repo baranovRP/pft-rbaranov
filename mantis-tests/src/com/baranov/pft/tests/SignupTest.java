@@ -9,29 +9,31 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.baranov.pft.fw.AccountHelper;
-import com.baranov.pft.fw.User;
+import com.baranov.pft.fw.UserData;
+import com.baranov.pft.utils.SortedListOf;
 
 public class SignupTest extends TestBase {
 
 	private AccountHelper accHelper;
 
-	public User user = new User().setLogin("dz23_brp_pft")
-			.setPassword("dz23_brp_pft").setEmail("dz23_brp_pft@ukr.net");
+	public UserData user = new UserData().withLogin("administrator")
+			.withPassword("root").withEmail("root@localhost");
 
 	@BeforeClass
 	public void initShortcuts() {
 		accHelper = app.getAccountHelper();
 	}
 
-	@Test
-	public void newUserShouldSignup() {
+	@Test(dataProvider = "validUser")
+	public void newUserShouldSignup(UserData user) {
+		// SortedListOf<UserData> oldList = app.getUserHelper().getUiUSers();
 		accHelper.signup(user);
 		accHelper.login(user);
-		assertThat(accHelper.loggedUser(), equalTo(user.login));
+		assertThat(accHelper.loggedUser(), equalTo(user.getLogin()));
 	}
 
-	@Test
-	public void existingUserShouldNotSignup() {
+	@Test(dataProvider = "validUser")
+	public void existingUserShouldNotSignup(UserData user) {
 		try {
 			accHelper.signup(user);
 		} catch (Exception e) {
@@ -42,4 +44,5 @@ public class SignupTest extends TestBase {
 		}
 		fail("Exception expected");
 	}
+	
 }

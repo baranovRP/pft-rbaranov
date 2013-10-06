@@ -12,11 +12,11 @@ public class AccountHelper extends WebDriverHelperBase {
 		super(applicationManager);
 	}
 
-	public void signup(User user) {
+	public void signup(UserData user) {
 		openUrl("/");
 		click(By.cssSelector("span.bracket-link"));
-		type(By.name("username"), user.login);
-		type(By.name("email"), user.email);
+		type(By.name("username"), user.getLogin());
+		type(By.name("email"), user.getEmail());
 		click(By.cssSelector("input.button"));
 
 		pause(3000);
@@ -27,12 +27,12 @@ public class AccountHelper extends WebDriverHelperBase {
 		}
 
 		pause(3000);
-		String msg = manager.getMailHelper().getNewMail(user.login,
-				user.password);
+		String msg = manager.getMailHelper().getNewMail(user.getLogin(),
+				user.getPassword());
 		String confirmationLink = getConfirmationLink(msg);
 		openAbsoluteUrl(confirmationLink);
-		type(By.name("password"), user.password);
-		type(By.name("password_confirm"), user.password);
+		type(By.name("password"), user.getPassword());
+		type(By.name("password_confirm"), user.getPassword());
 		click(By.cssSelector("input.button"));
 	}
 
@@ -52,11 +52,15 @@ public class AccountHelper extends WebDriverHelperBase {
 		return element.getText();
 	}
 
-	public void login(User user) {
+	public void login(UserData user) {
 		openUrl("/");
-		type(By.name("username"), user.login);
-		type(By.name("password"), user.password);
+		type(By.name("username"), user.getLogin());
+		type(By.name("password"), user.getPassword());
 		click(By.cssSelector("input.button"));
 
+	}
+	
+	public void logout(){
+		logout();
 	}
 }

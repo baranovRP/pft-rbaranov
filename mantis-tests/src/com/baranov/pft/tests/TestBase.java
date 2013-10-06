@@ -2,12 +2,18 @@ package com.baranov.pft.tests;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 
 import com.baranov.pft.fw.ApplicationManager;
+import com.baranov.pft.fw.UserData;
 
 public class TestBase {
 	public static ApplicationManager app;
@@ -39,5 +45,18 @@ public class TestBase {
 	@AfterTest
 	public void tearDown() throws Exception {
 		app.stop();
+	}
+
+	@DataProvider
+	public Iterator<Object[]> validUser() {
+		List<Object[]> list = new ArrayList<>();
+		UserData user = new UserData().withLogin("dz23_brp_pft")
+				.withPassword("dz23_brp_pft").withEmail("dz23_brp_pft@ukr.net");
+		list.add(new Object[] { user });
+		return list.iterator();
+	}
+
+	public int getRandomIndex(int size) {
+		return new Random().nextInt(size);
 	}
 }
