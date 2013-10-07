@@ -19,6 +19,7 @@ public class TestBase {
 	public static ApplicationManager app;
 	private int checkFrequency;
 	private int checkCounter;
+	public UserData userAdministrator;
 
 	@BeforeTest
 	public void setUp() throws Exception {
@@ -27,6 +28,8 @@ public class TestBase {
 		Properties properties = new Properties();
 		properties.load(new FileReader(new File(configFile)));
 		app = new ApplicationManager(properties);
+		userAdministrator = new UserData().withLogin("administrator")
+				.withPassword("root").withEmail("root@localhost");
 		checkCounter = 0;
 		checkFrequency = Integer.parseInt(properties.getProperty(
 				"check.frequency", "0"));

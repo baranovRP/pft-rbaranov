@@ -1,8 +1,12 @@
 package com.baranov.pft.tests;
 
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.Assert;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+//import static org.junit.Assert.assertThat;
 import static org.testng.Assert.fail;
 
 import org.testng.annotations.BeforeClass;
@@ -16,9 +20,6 @@ public class SignupTest extends TestBase {
 
 	private AccountHelper accHelper;
 
-	public UserData user = new UserData().withLogin("administrator")
-			.withPassword("root").withEmail("root@localhost");
-
 	@BeforeClass
 	public void initShortcuts() {
 		accHelper = app.getAccountHelper();
@@ -26,10 +27,16 @@ public class SignupTest extends TestBase {
 
 	@Test(dataProvider = "validUser")
 	public void newUserShouldSignup(UserData user) {
-		// SortedListOf<UserData> oldList = app.getUserHelper().getUiUSers();
+		accHelper.login(userAdministrator);
+		SortedListOf<UserData> oldList = app.getUserHelper().getUiUSers();
+		accHelper.logoutUser();
 		accHelper.signup(user);
 		accHelper.login(user);
 		assertThat(accHelper.loggedUser(), equalTo(user.getLogin()));
+		accHelper.logoutUser();
+		accHelper.login(userAdministrator);
+		SortedListOf<UserData> newList = app.getUserHelper().getUiUSers();
+		assertThat(newList, equalTo(oldList.withAdded(user)));
 	}
 
 	@Test(dataProvider = "validUser")
@@ -42,7 +49,7 @@ public class SignupTest extends TestBase {
 					containsString("That username is already being used. Please go back and select another one."));
 			return;
 		}
-		fail("Exception expected");
+		Assert.fail("Exception expected");
 	}
 	
 }

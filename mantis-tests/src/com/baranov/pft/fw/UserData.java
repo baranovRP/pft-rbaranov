@@ -1,6 +1,5 @@
 package com.baranov.pft.fw;
 
-
 public class UserData implements Comparable<UserData> {
 
 	private String id;
@@ -88,7 +87,13 @@ public class UserData implements Comparable<UserData> {
 
 	@Override
 	public int compareTo(UserData other) {
-		return this.getEmail().toLowerCase()
-				.compareTo(other.getEmail().toLowerCase());
+		return this.getLogin().toLowerCase()
+				.compareTo(other.getLogin().toLowerCase());
 	}
+
+	@Override
+	public String toString() {
+		return "UserData [login=" + login + ", email=" + email + "]";
+	}
+
 }

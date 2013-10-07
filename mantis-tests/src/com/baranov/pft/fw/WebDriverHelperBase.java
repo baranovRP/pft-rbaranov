@@ -76,7 +76,7 @@ public abstract class WebDriverHelperBase extends HelperBase {
 	protected WebElement findElement(By locator) {
 		try {
 			return driver.findElement(locator);
-		} catch (ElementNotFoundException e) {
+		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 			return null;
 		}

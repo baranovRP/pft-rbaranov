@@ -8,25 +8,26 @@ import org.openqa.selenium.WebElement;
 
 public class AccountHelper extends WebDriverHelperBase {
 
-	public AccountHelper(ApplicationManager applicationManager) {
-		super(applicationManager);
+	public AccountHelper(ApplicationManager manager) {
+		super(manager);
 	}
 
 	public void signup(UserData user) {
 		openUrl("/");
-		click(By.cssSelector("span.bracket-link"));
+		click(By.xpath("//a[contains(@href, 'signup_page.php')]"));
 		type(By.name("username"), user.getLogin());
 		type(By.name("email"), user.getEmail());
 		click(By.cssSelector("input.button"));
 
-		pause(3000);
+		pause(10000);
 		WebElement errorMsg = findElement(By
-				.cssSelector("table.width50 tbody tr td p"));
+				.cssSelector("div table.width50 tbody tr td p.center"));
 		if (errorMsg != null) {
 			throw new RuntimeException(errorMsg.getText());
 		}
-
-		pause(3000);
+		
+//		click(By.cssSelector("span.bracket-link a"));
+		pause(5000);
 		String msg = manager.getMailHelper().getNewMail(user.getLogin(),
 				user.getPassword());
 		String confirmationLink = getConfirmationLink(msg);
@@ -60,7 +61,7 @@ public class AccountHelper extends WebDriverHelperBase {
 
 	}
 	
-	public void logout(){
-		logout();
+	public void logoutUser(){
+		manager.navigateTo().logout();
 	}
 }

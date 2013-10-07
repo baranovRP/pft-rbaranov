@@ -13,20 +13,19 @@ import com.baranov.pft.utils.SortedListOf;
 public class RemoveUserTest extends TestBase {
 
 	private AccountHelper accHelper;
-	public UserData user = new UserData().withLogin("administrator")
-			.withPassword("root").withEmail("root@localhost");
-
+	
 	@BeforeClass
 	public void initShortcuts() {
 		accHelper = app.getAccountHelper();
 	}
 
 	@Test
-	public void deleteSomeUser() {
-		accHelper.login(user);
+	public void deleteSomeUser() throws InterruptedException {
+		accHelper.login(userAdministrator);
 		SortedListOf<UserData> oldList = app.getUserHelper().getUiUSers();
 		int index = getRandomIndex(oldList.size());
 		app.getUserHelper().deleteUser(index);
+		Thread.sleep(3000);
 		SortedListOf<UserData> newList = app.getUserHelper().getUiUSers();
 		assertThat(newList, equalTo(oldList.without(index)));
 	}

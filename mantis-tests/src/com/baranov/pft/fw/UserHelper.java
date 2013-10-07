@@ -36,7 +36,7 @@ public class UserHelper extends WebDriverHelperBase {
 			UserData user = extractUser(element);
 			users.add(user);
 		}
-		return users;
+		return  new SortedListOf<UserData>(users);
 	}
 
 	private void removeInessentialElements(List<WebElement> elements) {
